@@ -21,6 +21,10 @@ bool Senha::valida_senha(string senha){
           maius = true;
         }
     }
+    if(!maius){
+        return false;
+    }
+
     for(auto ch: senha){
         if(islower(ch)){
           minus = true;
@@ -32,7 +36,7 @@ bool Senha::valida_senha(string senha){
         }
     }
 
-    if(maius && minus && numero){
+    if(minus && numero){
         return true;
     }
     return false;  
