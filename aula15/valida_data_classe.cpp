@@ -88,7 +88,7 @@ class DataClass{
 
 
 int main(){
-    DataClass data_nova("01/10/1999");
+    DataClass data_nova("01/10/19");
     
     if (data_nova.valida_data()){
         cout << "Data valida" << endl;
