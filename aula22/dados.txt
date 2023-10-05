@@ -1,0 +1,4 @@
+Joao, joao@email, 10, 10
+teste, teste@email, 9, 7
+test1, teste@email, 4, 7.6
+test2, teste@email, 2.9, 9
