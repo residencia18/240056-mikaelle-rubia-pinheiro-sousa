@@ -169,7 +169,7 @@ vector<Aluno> BancoDeDados::recuperarDados(){
             getline(ss, nome, ',');
             getline(ss, email, ',');
             ss >> nota1;
-            ss.ignore();   // Ignora a vírgula
+            ss.ignore();
             ss >> nota2;
 
             alunos.push_back(Aluno(nome, email, nota1, nota2));
