@@ -1,11 +1,14 @@
 package com.example.grud.Grud.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+
+import com.example.grud.Grud.controller.dto.CarroDTO;
 
 @Entity
 public class Usuario {
@@ -16,7 +19,7 @@ public class Usuario {
     private String email;
     private String senha;
     
-    @OneToMany(mappedBy = "proprietario")
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
     private List<Carro> carros;
     
     public Usuario() {
@@ -24,14 +27,25 @@ public class Usuario {
     }
     
     public Usuario(Long id, String name, String email, String senha) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.senha = senha;
-    }
-    
-    public Long getId() {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.senha = senha;
+		
+	}
+
+
+	public Usuario(Long id, String name, String email, String senha, List<Carro> carros) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.senha = senha;
+		this.carros = carros;
+	}
+
+	public Long getId() {
         return id;
     }
     
