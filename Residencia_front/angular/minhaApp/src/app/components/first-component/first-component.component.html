@@ -1,0 +1,27 @@
+
+<div class="container">
+    <div class="buttons-column">
+        <button type ="submit" id="btn-go">Categoria</button>
+
+        <button type="submit" id="btn-aviao" (click)="selecionarCategoria('Avioes')">Avião</button>
+        <button type="submit" id="btn-barcos" (click)="selecionarCategoria('Barcos')">Barcos</button>
+        <button type="submit" id="btn-carros" (click)="selecionarCategoria('Carros')">Carros</button>
+    </div>
+    <div #content class="botoes-container">
+
+    </div>
+    <div  #informacaos class="info-column" #infoColumn>
+
+    </div>
+    <div #Blocoinformacaos class="info-column-span fourth-column" #infoColumn>
+        <span id="informaçoes ">
+            
+        </span>
+    </div>
+
+    <button type ="submit" id="btn-go2"(click) ="salvarDadosEmJSONLocal()">Adicionar</button>
+</div>
+
+
+
+

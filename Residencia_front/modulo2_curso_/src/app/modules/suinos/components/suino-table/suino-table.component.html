@@ -1,0 +1,230 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card
+    header="Animais na Produção"
+    styleClass="shadow-3 m-5 text-indigo-800"
+    >
+    <p-table
+    #suinoTable
+    [value]="suinos"
+    [rows]="10"
+    [paginator]="true"
+    [responsive]="true"
+    [globalFilterFields]="['brinco','brincoMae', 'brincoPai']"
+    [tableStyle]="{'min-width': '75rem'}"
+    [(selection)]="suinoSelected"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    data="id"
+    currentPageReportTemplate="Mostrando {first} de {last} de animais"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="brinco">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Brinco
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="brinco"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="brinco"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="brincoMae">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Brinco Mãe
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="brincoMae"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="brincoMae"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="brincopai">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Brinco Pai
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="brincopai"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="brincopai"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="dataNascimento">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Data Nascimento
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="dataNascimento"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="dataNascimento"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="dataSaida">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Data Saida
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="dataSaida"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="dataSaida"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="sexo">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Sexo
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="sexo"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="sexo"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="status">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Status
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="status"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="status"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              >
+            </p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <div class="flex justify-content-center">
+          <p-button
+          styleClass="p-button-info"
+          icon="pi pi-plus"
+          label="Adicionar"
+          pTooltip="Adicionar produto"
+          tooltipPosition="top"
+          (onClick)="handleSuinoEvent(addSuinoEvent)"
+          >
+          </p-button>
+        </div>
+
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-suino>
+      <tr >
+        <td >{{ suino.brinco }}</td>
+        <td>{{ suino.brincoMae }}</td>
+        <td>{{ suino.brincoPai }}</td>
+        <td>{{ suino.dataNascimento }}</td>
+        <td>{{ suino.dataSaida }}</td>
+        <td>{{ suino.sexo }}</td>
+        <td>{{ suino.status }}</td>
+        <td>
+          <div class="flex justify-content-center grap-3 align-content-center align-items-center">
+          <button
+          pButton
+          pRipple
+          icon="pi pi-history"
+          pTooltip="Historico do peso"
+          tooltipPosition="top"
+          class = "p-button-secondary"
+          routerLink="/historico"
+          routerLinkActive="exact_route"
+          (click)="handlePesoEvent(historicSuinoEvent, suino?.id)"
+          ></button>
+
+        <button
+        pButton
+        pRipple
+        icon="pi pi-pencil"
+        class = "p-button-secondary"
+        pTooltip="Editar"
+        tooltipPosition="top"
+        (click)="handleSuinoEvent(editSuinoEvent, suino?.id)"
+        ></button>
+
+        <button
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class = "p-button-danger"
+        pTooltip="Remover"
+        tooltipPosition="top"
+        (click)="handleDeleteSuino(suino?.id, suino?.brinco)"
+        ></button>
+      </div>
+    </td>
+
+      </tr>
+    </ng-template>
+
+    </p-table>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<h1>{{"Consultando a Wiki API" | titlecase }}</h1>
+<p>{{ today | date: "fullDate" }}</p>
+<div class="class">
+
+    <app-valorbusca (sendValue)="onsendPages($event)"></app-valorbusca>
+    <div #informacaos class="info-column">
+        <h2>{{title}}</h2>
+        <div #resultadoBusca *ngFor="let item of listabuscas" >
+            <h2>{{ item.titulo }}</h2>
+            <p>{{ item.result }}</p>
+            
+        </div>
+    </div>
+</div>

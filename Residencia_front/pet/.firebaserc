@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "residenciaaula13"
+  },
+  "targets": {
+    "residenciaaula13": {
+      "hosting": {
+        "pet": [
+          "residenciaaula13"
+        ]
+      }
+    }
+  }
+}

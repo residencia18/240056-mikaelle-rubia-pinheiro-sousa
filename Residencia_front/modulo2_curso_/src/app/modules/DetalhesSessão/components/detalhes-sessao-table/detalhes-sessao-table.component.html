@@ -1,0 +1,79 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card
+      header="Detalhe da Sessao da Data"
+      styleClass="shadow-3 m-5 text-indigo-800"
+    >
+      <p-table
+        #HistoricoTable
+        [rows]="10"
+        [value]="Detalhes"
+        [paginator]="true"
+        [responsive]="true"
+        [globalFilterFields]="['animais','descricao']"
+        [tableStyle]="{'min-width': '75rem'}"
+        [(selection)]="SessaoSelected"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+        data="id"
+        currentPageReportTemplate="Mostrando {first} de {last} de Detalhes"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="brinco">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Brinco
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon field="brinco"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="brinco"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <th pSortableColumn="atividade" *ngFor="let atividade of atividades_sessao">
+
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  {{atividade}}
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon field="atividade"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="brinco"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-Detalhes>
+          <tr *ngFor="let brinco of brinco_animais">
+            <td>{{ brinco }}</td>
+            <td *ngFor="let atividade of atividades_sessao">
+            {{Detalhes.atividade.includes(atividade) && Detalhes_animal.includes(brinco) ?'X' : 'Não aplicada'}}
+            </td>
+          </tr>
+
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+</div>

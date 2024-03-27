@@ -1,0 +1,35 @@
+<div *ngIf="ref.data.event.action === addPesoEvent">
+  <form [formGroup]="addPesoForm" (ngSubmit)="handleSubmitAddPeso()">
+
+    <div class="card flex flex-column md:flex-column gap-3">
+      <input pInputText placeholder="Peso do animal" formControlName="pesoKg"/>
+      <input pInputText type ="date" placeholder="Data da pesagem" formControlName="dataPesagem">
+
+      <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
+        <p-button
+        [disabled]="!addPesoForm.valid"
+        type="submit"
+        label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="ref.data.event.action === editPesoEvent">
+  <form [formGroup]="editPesoForm" (ngSubmit)="handleSubmitEditPeso()">
+
+    <div class="card flex flex-column md:flex-column gap-3">
+      <input pInputText placeholder="Peso do animal" formControlName="pesoKg"/>
+      <input pInputText type ="date" placeholder="Data da pesagem" formControlName="dataPesagem">
+
+      <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
+        <p-button
+        [disabled]="!editPesoForm.valid"
+        type="submit"
+        label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>

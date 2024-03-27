@@ -1,0 +1,112 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card
+    header="Historico de Peso"
+    styleClass="shadow-3 m-5 text-indigo-800"
+    >
+    <p-table
+    #HistoricoTable
+    [value]="Pesos"
+    [rows]="10"
+    [paginator]="true"
+    [responsive]="true"
+    [globalFilterFields]="['dataPesagem','pesoKg']"
+    [tableStyle]="{'min-width': '75rem'}"
+    [(selection)]="HistoricoSelected"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    data="id"
+    currentPageReportTemplate="Mostrando {first} de {last} de pesos"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="dataPesagem">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Data Pesagem
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="dataPesagem"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="dataPesagem"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <th pSortableColumn="pesoKg">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Peso Kg
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="pesoKg"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="pesoKg"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <div class="flex justify-content-center">
+          <p-button
+          styleClass="p-button-info"
+          icon="pi pi-plus"
+          label="Adicionar"
+          pTooltip="Adicionar produto"
+          tooltipPosition="top"
+          (onClick)="handlePesoEvent(addPesoEvent)"
+          >
+          </p-button>
+        </div>
+      </tr>
+
+    </ng-template>
+
+    <ng-template pTemplate="body" let-peso>
+      <tr>
+        <td>{{ peso.pesoKg }}</td>
+        <td>{{ peso.dataPesagem }}</td>
+        <td>
+          <div class="flex justify-content-center grap-3 align-content-center align-items-center">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-secondary"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              (click)="handlePesoEvent(editPesoEvent, peso)"
+            ></button>
+
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-danger"
+              pTooltip="Remover"
+              tooltipPosition="top"
+              (click)="handleDeletePeso(peso.id, peso.pesoKg)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    </p-table>
+  </p-card>
+
+  </div>
+
+</div>

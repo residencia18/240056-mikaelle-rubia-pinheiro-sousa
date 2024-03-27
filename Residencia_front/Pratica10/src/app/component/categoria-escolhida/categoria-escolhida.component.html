@@ -1,0 +1,17 @@
+<div class="container">
+    <app-caracteristicas-categoria (sendNome)="buscaPorNome($event)" (sendObjetNome)="buscaObjetoNome($event)"></app-caracteristicas-categoria>
+    <div class="buttons-column-Nome">
+        <h1 [ngStyle]="{'backgroundColor': backgroundColor_,'padding': padding_,'color': color_,'fontFamily': fontFamily_,
+            'marginTop': marginTop_,'border': border_,'textAlign': textAlign_, 'line-height': '30px','border-radius': '10px'
+        }">
+            {{ NomeObj }}
+        </h1>
+
+        <div #buscaCaracter *ngFor="let categoria of NomesCaracter">
+            <span [ngStyle]="{'display': 'inline-block','flex-direction': 'column', 'gap': '8px','padding': '10px 5px','margin-top': '5px'
+            ,'background-color': '#007bff', 'cursor': 'pointer', 'border-radius': '5px', 'width': 'fit-content'}" (click) = "buscaValor(categoria)">
+                {{ categoria}}
+        </span>
+        </div>
+    </div>
+</div>

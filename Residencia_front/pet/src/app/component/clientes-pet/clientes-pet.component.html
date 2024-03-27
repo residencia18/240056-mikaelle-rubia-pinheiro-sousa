@@ -1,0 +1,28 @@
+
+
+
+<p *ngIf="clientePetInput.length < 1">Não existem passagens cadastradas!</p>
+<table class="tickets-table" *ngIf="clientePetInput.length >=1">
+    <thead>
+      <tr>
+        <th>Nome tutor </th>
+        <th>Nome do animal</th>
+        <th>idade </th>
+        <th>Peso </th>
+        <th>Raça </th>
+        <th>Historico </th>
+        <!-- <th><button (click)="apagarTudo()">Apagar Tudo</button></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientePetInput">
+        <td>{{ cliente.nomeTutor }}</td>
+        <td>{{ cliente.nomeAnimal }}</td>
+        <td>{{ cliente.idade }}</td>
+        <td>{{ cliente.peso }}</td>
+        <td>{{ cliente.raca }}</td>
+        <td colspan="1">{{ cliente.historico }}</td>
+        <td><button type="button" class="btnEditar" routerLink="/editarCliente/{{cliente.id}}">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>

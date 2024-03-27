@@ -1,0 +1,19 @@
+<div class="form-container">
+
+    <form [formGroup]="ordemDeNomeCliente" (ngSubmit)="onSubmit()"  class="ordemServico">
+        <div class ="form-group">
+            <label for="nomeCliente"> Nome:</label>
+            <input type="text" formControlName="nomeCliente">
+        </div>
+        
+        <div class ="form-group">
+            <label for="sobreNome"> SobreNome: </label>
+            <input type="text" formControlName="sobreNome" >
+        </div>
+        
+        <button type="submit">Enviar</button>
+    </form>
+    <button (click)="inscricaoStatusChanges()">inscricao StatusChanges</button><br>
+</div>
+
+

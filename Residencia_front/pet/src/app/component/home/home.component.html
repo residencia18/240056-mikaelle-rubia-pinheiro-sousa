@@ -1,0 +1,18 @@
+<div class="container_home">
+
+    <div class="logo">Fiel Amigo Pet Shop</div>
+    <div class="links">
+      <div class="nav-link">
+
+          <a routerLink="/formularioPet" routerLinkActive="active">Formulario de cadastro</a>
+      </div>
+      <div class="nav-link">
+        <a routerLink="/listaPet" routerLinkActive="active">Lista de paciente</a>
+      </div>
+
+    </div>
+
+    <app-clientes-pet *ngIf="clientePet" [clientePetInput] = "clientePet"></app-clientes-pet>
+
+
+</div>

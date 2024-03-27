@@ -1,0 +1,69 @@
+<div class="form-container">
+    <form [formGroup]="ordemDeForm" (ngSubmit)="onSubmit()"  class="ordemFormulario">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" formControlName="nome" (input)="onInput($event, 'nome')">
+  
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" formControlName="senha" >
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-Mail:</label>
+            <input type="email" formControlName="email" (input)="onInput($event, 'email')">
+        </div>
+        
+        <div class="form-group">
+            <label for="nome_completo">Nome Completo:</label>
+            <input type="text" formControlName="nome_completo" (input)="onInput($event, 'nome_completo')">
+        </div>
+
+        <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input type="tel" formControlName="telefone" (input)="onInput($event, 'telefone')">
+        </div>
+
+        <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <input type="text" formControlName="endereco" (input)="onInput($event, 'endereco')">
+        </div>
+        
+        <div class="form-group">
+            <label for="data_nascimento">Data nascimento:</label>
+            <input type="date" formControlName="data_nascimento" (input)="onInput($event, 'data_nascimento')">
+        </div>
+        
+        <div class="form-group">
+            <label for="genero">Gênero:</label>
+            <select formControlName="genero" (input)="onInput($event, 'genero')" >
+                <option value="feminino">Feminino</option>
+                <option value="masculino">Masculino</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="profissao">Profissão:</label>
+            <input type="text" formControlName="profissao" (input)="onInput($event, 'profissao')"  >
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<hr>
+<button (click)="inscricaoValueChanges()">inscricao ValueChanges</button><br>
+<button (click)="inscricaoStatusChanges()">inscricao StatusChanges</button><br>
+<hr>
+<h3>Quadro de Eventos 
+    Nome: {{nome}}<br/>
+    Senha: {{senha}}<br/>
+    email: {{email}}<br/>  
+    Nome completo:{{nome_completo}} <br/> 
+    Telefone:{{telefone}} <br/> 
+    Endereco:{{endereco}} <br/> 
+    Data nascimento:{{data_nascimento}} <br/> 
+    Genero:{{genero}} <br/> 
+    Profissao :{{profissao }}<br/> 
+  </h3>
