@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.grud.Grud.model.Usuario;
 
+
 public class ProjetoForm {
 	private List<Usuario> integrante;
 	private String nome;

@@ -87,10 +87,10 @@ public class Controller {
     public ResponseEntity<UsuarioDTO> atualizar(@PathVariable Long id, @RequestBody UsuarioForm us) {
         try {
             Usuario usuario = usuarioRepository.getReferenceById(id);
-//            usuario.setName(us.getName());
-//            usuario.setEmail(us.getEmail());
-//            usuario.setSenha(us.getSenha());
-//            usuario.setCarros(us.getCarros());
+            usuario.setName(us.getName());
+            usuario.setEmail(us.getEmail());
+            usuario.setSenha(us.getSenha());
+            usuario.setCarros(us.getCarros());
             usuarioRepository.save(usuario);
             
             List<CarroDTO> carrosDTO = new ArrayList<>();

@@ -54,23 +54,20 @@ public class ContollerCarro {
 
     @PostMapping
     public ResponseEntity<CarroDTO> inserir(@RequestBody CarroForm car, UriComponentsBuilder uriC) {
-
         if (car.getProprietario() == null) {
             return ResponseEntity.badRequest().body(new CarroDTO());
         }
-        
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(car.getProprietario());
+        System.out.println("aqui"+car.getProprietario());
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(car.getProprietario().longValue());
+        return optionalUsuario.map(usuario -> {
+            Carro carro = car.criarCarro(usuario);
+            carroRepository.save(carro);
+            
+            CarroDTO carroDTO = new CarroDTO(carro.getId(), carro.getPlaca(), carro.getRenavam(), usuario);
+            URI uri = uriC.path("/carros/{id}").buildAndExpand(carro.getId()).toUri();
 
-        Usuario usuario = optionalUsuario.get();
-        Carro carro = car.criarCarro(usuario);
-         
-        carroRepository.save(carro);
-        
-        CarroDTO carroDTO = new CarroDTO(carro.getId(), carro.getPlaca(), carro.getRenavam(),usuario);
-        URI uri = uriC.path("/carros/{id}").buildAndExpand(carro.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(carroDTO);
-        
+            return ResponseEntity.created(uri).body(carroDTO);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
