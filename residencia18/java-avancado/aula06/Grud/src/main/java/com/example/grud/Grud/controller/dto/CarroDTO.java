@@ -2,6 +2,7 @@ package com.example.grud.Grud.controller.dto;
 
 import com.example.grud.Grud.model.Usuario;
 
+
 public class CarroDTO {
     private Long id;
     private String placa;

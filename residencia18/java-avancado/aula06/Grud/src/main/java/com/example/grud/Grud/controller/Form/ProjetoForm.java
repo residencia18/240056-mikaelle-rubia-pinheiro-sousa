@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.example.grud.Grud.model.Usuario;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class ProjetoForm {
 	private List<Usuario> integrante;
 	private String nome;
@@ -23,27 +27,5 @@ public class ProjetoForm {
 		this.gerente = gerente;
 	}
 
-	public List<Usuario> getIntegrante() {
-		return integrante;
-	}
 
-	public void setIntegrante(List<Usuario> integrante) {
-		this.integrante = integrante;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getGerente() {
-		return gerente;
-	}
-
-	public void setGerente(String gerente) {
-		this.gerente = gerente;
-	}
 }

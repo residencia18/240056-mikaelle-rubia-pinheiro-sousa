@@ -57,7 +57,7 @@ public class ContollerCarro {
         if (car.getProprietario() == null) {
             return ResponseEntity.badRequest().body(new CarroDTO());
         }
-        System.out.println("aqui"+car.getProprietario());
+
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(car.getProprietario().longValue());
         return optionalUsuario.map(usuario -> {
             Carro carro = car.criarCarro(usuario);
