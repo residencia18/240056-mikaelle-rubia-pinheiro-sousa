@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,6 +37,7 @@ public class Product implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String description; 
 	
+    @PositiveOrZero(message = "O valor do campo price não pode ser negativo")
 	private Double price;
 	
 	@Column(name = "img_url")

@@ -98,4 +98,19 @@ class ProductTests {
             }
         }
     }
+    
+    void testProductPriceNotNegative() {
+        Product product = new Product();
+        product.setPrice(-10.00);
+
+        var violations = validator.validate(product);
+
+        assertEquals(2, violations.size());
+        LOGGER.info("--------Executando  class ProductTests, metodo testProductPriceNotNegative() --------");
+        for (ConstraintViolation<Product> violation : violations) {
+            if (violation.getPropertyPath().toString().equals("price")) {
+                assertEquals("O valor do campo price não pode ser negativo", violation.getMessage());
+            }
+        }
+    }
 }
