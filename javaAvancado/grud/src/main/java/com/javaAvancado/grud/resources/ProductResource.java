@@ -93,7 +93,7 @@ public class ProductResource {
     		return ResponseEntity.created(uri).body(ProductDTO);
     		
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+        	return ResponseEntity.notFound().build();
         }
     }
      

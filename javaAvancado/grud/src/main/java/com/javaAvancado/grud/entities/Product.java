@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,8 +30,10 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     
+    @NotBlank(message = "Valor do campo name não pode ser null ou vazio")
 	private String name;
-	
+
+    @NotBlank(message = "Valor do campo description não pode ser null ou vazio")
 	@Column(columnDefinition = "TEXT")
 	private String description; 
 	

@@ -9,11 +9,14 @@ import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.entities.Product;
 import com.javaAvancado.grud.resouces.DTO.CategoryDTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
 public class ProductForm {
+	
+
 	private String name;
 	private String description; 
 	private Double price;
