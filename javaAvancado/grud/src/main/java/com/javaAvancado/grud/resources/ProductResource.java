@@ -22,11 +22,10 @@ import com.javaAvancado.grud.entities.Product;
 import com.javaAvancado.grud.entities.Product;
 import com.javaAvancado.grud.repository.CategoryRepository;
 import com.javaAvancado.grud.repository.ProductRepository;
-import com.javaAvancado.grud.resouces.DTO.CategoryDTO;
-import com.javaAvancado.grud.resouces.DTO.ProductDTO;
-import com.javaAvancado.grud.resouces.DTO.ProductDTO;
-import com.javaAvancado.grud.resouces.form.CategoryForm;
-import com.javaAvancado.grud.resouces.form.ProductForm;
+import com.javaAvancado.grud.resources.DTO.CategoryDTO;
+import com.javaAvancado.grud.resources.DTO.ProductDTO;
+import com.javaAvancado.grud.resources.form.CategoryForm;
+import com.javaAvancado.grud.resources.form.ProductForm;
 
 import jakarta.persistence.EntityNotFoundException;
 

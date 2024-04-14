@@ -1,24 +1,22 @@
-package com.javaAvancado.grud.resouces.DTO;
+package com.javaAvancado.grud.resources.form;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.entities.Product;
+import com.javaAvancado.grud.resources.DTO.CategoryDTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
-public class ProductDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ProductForm {
 	
-	private Long id;
+
 	private String name;
 	private String description; 
 	private Double price;
@@ -26,10 +24,9 @@ public class ProductDTO implements Serializable {
 	private Instant date;
 	
 	private List<CategoryDTO> categories = new ArrayList<>();
-
-	public ProductDTO( String name, String description, Double price, String imgUrl, Instant date) {
+	
+	public ProductForm ( String name, String description, Double price, String imgUrl, Instant date) {
 		super();
-		this.id = null;
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -37,9 +34,8 @@ public class ProductDTO implements Serializable {
 		this.date = date;
 	}
 
-	public ProductDTO(Product entity) {
+	public ProductForm (Product entity) {
 		super();
-		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();
 		this.price = entity.getPrice();
@@ -47,16 +43,21 @@ public class ProductDTO implements Serializable {
 		this.date = entity.getDate();
 	}
 	
-	public ProductDTO() {
+	public ProductForm () {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ProductDTO(Product entity, Set<Category> categories) {
+
+	public ProductForm (Product entity, Set<Category> categories) {
 		this(entity);
 		categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
 		
 	}
-
 	
+	
+	public Product createProduct() {
+		return new Product(null, name, description, price, imgUrl, date);
+		
+	}
 }

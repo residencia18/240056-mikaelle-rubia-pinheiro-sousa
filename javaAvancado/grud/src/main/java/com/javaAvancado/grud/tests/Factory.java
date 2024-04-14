@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.entities.Product;
-import com.javaAvancado.grud.resouces.DTO.ProductDTO;
+import com.javaAvancado.grud.resources.DTO.ProductDTO;
 
 public class Factory {
 	

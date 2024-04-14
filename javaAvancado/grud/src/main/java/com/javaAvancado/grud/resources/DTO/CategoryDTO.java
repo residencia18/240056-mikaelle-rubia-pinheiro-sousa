@@ -1,4 +1,4 @@
-package com.javaAvancado.grud.resouces.DTO;
+package com.javaAvancado.grud.resources.DTO;
 
 import java.io.Serializable;
 

@@ -20,132 +20,100 @@ import com.github.javafaker.Faker;
 import com.javaAvancado.grud.GrudApplication;
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.repository.CategoryRepository;
-import com.javaAvancado.grud.resouces.DTO.CategoryDTO;
-import com.javaAvancado.grud.resouces.form.CategoryForm;
+import com.javaAvancado.grud.resources.DTO.CategoryDTO;
+import com.javaAvancado.grud.resources.form.CategoryForm;
+import com.javaAvancado.grud.services.CategoryService;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 
-// implementa o controller
 @RestController
 @RequestMapping("/categorias/")
 public class CategoryResource {
 
-	private static final Faker faker = new Faker(new Locale("py-br"));
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
 	
+	@Autowired
+	private CategoryService service;
 	
-    @Autowired
-    private CategoryRepository categoryRepository;
 	
-    @Transactional(readOnly= true)
+
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> findAll(@RequestParam(required = false) String name) {
-		List<Category>listCategory = new ArrayList<>();
-		
-		if (name != null && !name.isEmpty()) {
-			 listCategory = categoryRepository.findByName(name);
-			 if(listCategory.isEmpty()) {
-				 LOGGER.info("--------Executando operação de busca de categorias. valor não encontrado. --------");
-			     return ResponseEntity.badRequest().build();
-			 }
-        } else {
-        	listCategory = categoryRepository.findAll();
-//        	if(listCategory.size() == 0) {
-//        		LOGGER.info("--Banco vazio--");
-//        		insertData();
-//        	}
-        }
-		
-		List<CategoryDTO> listDTO = listCategory.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-		
+    	try {
+    		List<CategoryDTO> list = new ArrayList<>();
 
-		LOGGER.info("--------Executando operação de busca de categorias. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
-		return ResponseEntity.ok().body(listDTO);
-	}
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> findId(@PathVariable Long id) {
-        try {
-			Category category = categoryRepository.getReferenceById(id);
+    		if (name != null && !name.isEmpty()) {
+    			list = service.findByName(name);
+    		}else {
+    			list = service.findAll();
+
+    		}
+				
+			LOGGER.info("--------Executando operação de busca de categorias. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
+			return ResponseEntity.ok().body(list);
 			
-			CategoryDTO categoryDTO = new CategoryDTO(category);
-			LOGGER.info("--------Executando operação de busca de categorias com ID: {}", id);
-            return ResponseEntity.ok(categoryDTO);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
-    }
-    	
-	
-    public void insertData() {
-        try {
-            for (int i = 0; i < 3; i++) {
-                CategoryForm categoryForm = new CategoryForm(faker.name().fullName());
-                Category category = categoryForm.createCategory();
-            
-                LOGGER.info("Category: {}", category.getName());          
-                categoryRepository.save(category);
-            }   
-        } catch (Exception e) {
-            LOGGER.error("Error occurred while inserting data: {}", e.getMessage());
-        }
-    }
-
-    
-    @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryForm categoryFor, UriComponentsBuilder uriC) {
-    	 
-    	try {
-    		Category category = categoryFor.createCategory();
-    		
-    		categoryRepository.save(category);
-    		CategoryDTO categoryDto = new CategoryDTO(category);
-    		
-    		URI uri = uriC.path("/categorias/{id}").buildAndExpand(category.getId()).toUri();
-    		
-    		LOGGER.info("--------Inserindo nova categoria: {}", categoryFor.getName());
-    		return ResponseEntity.created(uri).body(categoryDto);
-    		
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
+	}
     
     
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryForm categoryFor) {
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
 		try {
-			Category category = categoryRepository.getReferenceById(id);
-			category.setName(categoryFor.getName());
-			categoryRepository.save(category);
-    		CategoryDTO categoryDto = new CategoryDTO(category);
-    		LOGGER.info("Atualizando categoria com ID {}: {}", id, categoryFor.getName());
-    		
-            return ResponseEntity.ok(categoryDto);
-			
-	    } catch (Exception e) {
-	        return ResponseEntity.notFound().build();
-	    }
-    }
-   
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-    	try {
-	        Category category = categoryRepository.getReferenceById(id);
-	        if (category == null) {
-	            throw new EntityNotFoundException("Categoria com o ID " + id + " não encontrada.");
-	        }
-	        categoryRepository.delete(category);
-	        LOGGER.info("Categoria com ID {} foi excluída com sucesso.", id);
-			return ResponseEntity.noContent().build(); 
-		
+			CategoryDTO categoryDTO= service.findById(id);
+			LOGGER.info("--------Executando operação de busca de categorias com ID: {}", id);
+			return ResponseEntity.ok().body(categoryDTO);
         } catch (Exception e) {
-            LOGGER.error("Erro ao excluir a categoria com ID " + id, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.notFound().build();
         }
+	}
+    	
     
-    }
+	@PostMapping
+	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryForm categoryFor, UriComponentsBuilder uriC) {
+		
+		try {
+			CategoryDTO categoryDTO = service.insert(categoryFor);
+			URI uri = uriC.path("/categorias/{id}").buildAndExpand(categoryDTO.getId()).toUri();
+			LOGGER.info("--------Inserindo nova categoria: {}", categoryFor.getName());
+			return ResponseEntity.created(uri).body(categoryDTO);
+			
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+       }
+	
+	}
+    
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryForm categoryFor) {
+		
+		try {
+			CategoryDTO categoryDTO = service.update(id, categoryFor);
+			LOGGER.info("--------Update na categoria: {}", categoryFor.getName());
+			return ResponseEntity.ok().body(categoryDTO);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+	}
+    
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		try {
+			service.delete(id);
+			LOGGER.info("Categoria com ID {} foi excluída com sucesso.", id);
+			return ResponseEntity.noContent().build();
+			
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+		
+	
+	}
     
     @DeleteMapping("/")
     public ResponseEntity<Void> deleteCategoryNull() {

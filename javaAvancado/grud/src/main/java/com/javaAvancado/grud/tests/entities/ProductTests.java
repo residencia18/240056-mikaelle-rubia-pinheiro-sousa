@@ -97,6 +97,7 @@ public class ProductTests {
         }
     }
     
+    @Test
     void testProductPriceNotNegative() {
         Product product = new Product();
         product.setPrice(-10.00);
@@ -111,4 +112,6 @@ public class ProductTests {
             }
         }
     }
+    
+    
 }
