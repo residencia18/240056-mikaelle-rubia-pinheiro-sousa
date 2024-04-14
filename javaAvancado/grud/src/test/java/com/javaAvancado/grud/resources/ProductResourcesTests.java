@@ -18,7 +18,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
+import com.javaAvancado.grud.exceptions.DatabaseException;
 import com.javaAvancado.grud.exceptions.ResourceNotFoundException;
 import com.javaAvancado.grud.resources.DTO.ProductDTO;
 import com.javaAvancado.grud.resources.form.ProductForm;
@@ -47,11 +49,13 @@ public class ProductResourcesTests {
 	private ProductDTO productDTO;
 	private ProductForm productForm;
 	private Long nonExistingId;
+	private Long dependentId;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 2L;
+		dependentId = 3L;
 		
 	    productList = new ArrayList<>();
 	    product = new ProductDTO( Factory.createProduct());
@@ -66,9 +70,33 @@ public class ProductResourcesTests {
 		Mockito.when(service.update(Mockito.eq(existingId), Mockito.any())).thenReturn(productDTO);
 		Mockito.when(service.update(Mockito.eq(nonExistingId), Mockito.any())).thenThrow(ResourceNotFoundException.class);
 		
+		Mockito.doNothing().when(service).delete(existingId);
+		Mockito.doThrow(ResourceNotFoundException.class).when(service).delete(nonExistingId);
+		Mockito.doThrow(DatabaseException.class).when(service).delete(dependentId);
+		
 	}
 	
 
+	@Test
+	public void deleteShouldReturnNoContentWhenIdExists() throws Exception {
+		
+		ResultActions result = 
+				mockMvc.perform(delete("/produtos/{id}", existingId)
+					.accept(MediaType.APPLICATION_JSON));
+		
+		result.andExpect(status().isNoContent());
+	}
+	
+	@Test
+	public void deleteShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
+		
+		ResultActions result = 
+				mockMvc.perform(delete("/produtos/{id}", nonExistingId)
+					.accept(MediaType.APPLICATION_JSON));
+		
+		result.andExpect(status().isNotFound());
+	}
+	
 	@Test
 	public void updateShouldReturnProductDTOWhenIdExists() throws Exception {
 		
