@@ -2,6 +2,7 @@ package com.javaAvancado.grud.tests.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,6 +49,9 @@ public class ProductServiceTests {
 	    
 	    Mockito.when(productRepository.findAll()).thenReturn(productList);
 	    
+		Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
+		Mockito.when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+	    
 	    Mockito.doNothing().when(productRepository).deleteById(existingId);
 	    Mockito.doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);
 	    Mockito.doThrow(DataIntegrityViolationException.class).when(productRepository).deleteById(dependentId);
@@ -55,7 +59,7 @@ public class ProductServiceTests {
 	}
 	
 	@Test
-	public void findAllShouldReturnPage() {
+	public void findAllShouldReturnList() {
 		
 		List<ProductDTO> result = service.findAll();
 		
