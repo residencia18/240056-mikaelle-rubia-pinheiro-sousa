@@ -84,7 +84,7 @@ public class ProductResourcesTests {
 	public void deleteShouldReturnNoContentWhenIdExists() throws Exception {
 		
 		ResultActions result = 
-				mockMvc.perform(delete("/produtos/{id}", existingId)
+				mockMvc.perform(delete("/produtos/v1/{id}", existingId)
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isNoContent());
@@ -94,7 +94,7 @@ public class ProductResourcesTests {
 	public void deleteShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
 		
 		ResultActions result = 
-				mockMvc.perform(delete("/produtos/{id}", nonExistingId)
+				mockMvc.perform(delete("/produtos/v1/{id}", nonExistingId)
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isNotFound());
@@ -106,7 +106,7 @@ public class ProductResourcesTests {
 		String jsonBody = objectMapper.writeValueAsString(productForm);
 		
 		ResultActions result = 
-				mockMvc.perform(post("/produtos/")
+				mockMvc.perform(post("/produtos/v1")
 					.content(jsonBody)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON));
@@ -123,7 +123,7 @@ public class ProductResourcesTests {
 		String jsonBody = objectMapper.writeValueAsString(productForm);
 		
 		ResultActions result = 
-				mockMvc.perform(put("/produtos/{id}", existingId)
+				mockMvc.perform(put("/produtos/v1/{id}", existingId)
 					.content(jsonBody)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON));
@@ -140,7 +140,7 @@ public class ProductResourcesTests {
 		String jsonBody = objectMapper.writeValueAsString(productForm);
 		
 		ResultActions result = 
-				mockMvc.perform(put("/produtos/{id}", nonExistingId)
+				mockMvc.perform(put("/produtos/v1/{id}", nonExistingId)
 					.content(jsonBody)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON));
@@ -152,7 +152,7 @@ public class ProductResourcesTests {
 	public void findByIdShouldReturnProductWhenIdExists() throws Exception {
 		
 		ResultActions result = 
-				mockMvc.perform(get("/produtos/{id}", existingId)
+				mockMvc.perform(get("/produtos/v1/{id}", existingId)
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isOk());
@@ -165,7 +165,7 @@ public class ProductResourcesTests {
 	public void findByIdShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
 		
 		ResultActions result = 
-				mockMvc.perform(get("/produtos/{id}", nonExistingId)
+				mockMvc.perform(get("/produtos/v1/{id}", nonExistingId)
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isNotFound());
@@ -176,7 +176,7 @@ public class ProductResourcesTests {
 	public void findAllShouldReturnList() throws Exception {
 		
 		ResultActions result = 
-				mockMvc.perform(get("/produtos/")
+				mockMvc.perform(get("/produtos/v1")
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isOk());

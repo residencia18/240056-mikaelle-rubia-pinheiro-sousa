@@ -104,7 +104,7 @@ public class ProductTests {
 
         var violations = validator.validate(product);
 
-        assertEquals(2, violations.size());
+        assertEquals(3, violations.size());
         LOGGER.info("--------Executando  class ProductTests, metodo testProductPriceNotNegative() --------");
         for (ConstraintViolation<Product> violation : violations) {
             if (violation.getPropertyPath().toString().equals("price")) {
