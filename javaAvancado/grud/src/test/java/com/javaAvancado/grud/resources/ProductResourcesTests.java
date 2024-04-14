@@ -47,7 +47,7 @@ public class ProductResourcesTests {
 	
 	
 	@Test
-	public void findAllShouldReturnPage() throws Exception {
+	public void findAllShouldReturnList() throws Exception {
 		
 		ResultActions result = 
 				mockMvc.perform(get("/produtos/")
