@@ -35,7 +35,8 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
 		List<Product> list = repository.findAll();
-		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
+		List<ProductDTO> listDTO = list.stream().map(x -> new ProductDTO(x, x.getCategories() )).collect(Collectors.toList());
+		return listDTO;
 	}
 	
 	@Transactional(readOnly = true)
@@ -61,7 +62,7 @@ public class ProductService {
 	@Transactional
 	public ProductDTO update(Long id, ProductForm productForm) {
 		try {
-			Product entity = repository.getOne(id);
+			Product entity = repository.getReferenceById(id);
 			entity.setName(productForm.getName());
 			entity.setDescription(productForm.getDescription());
 			entity.setImgUrl(productForm.getImgUrl());
@@ -73,8 +74,9 @@ public class ProductService {
 				Category category = categoryRepository.getOne(categoryDTO.getId());
 				entity.getCategories().add(category);
 			}
-			entity = repository.save(entity);
-			return new ProductDTO(entity);
+			repository.save(entity);
+			ProductDTO productDTO = new ProductDTO(entity, entity.getCategories());
+			return productDTO;
 		}
 		catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
