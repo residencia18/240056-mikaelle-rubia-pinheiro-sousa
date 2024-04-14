@@ -7,9 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.javaAvancado.grud.exceptions.DatabaseException;
 import com.javaAvancado.grud.exceptions.ResourceNotFoundException;
 import com.javaAvancado.grud.repository.ProductRepository;
 import com.javaAvancado.grud.services.ProductService;
@@ -25,15 +27,28 @@ public class ProductServiceTests {
 	
 	private Long existingId;
 	private Long nonExistingId;
-	
+	private long dependentId;
 	
 	@BeforeEach
 	void setUp() throws Exception{
 	    existingId = 6L;
 	    nonExistingId = 1000L;
+	    dependentId = 4L;
 	    
 	    Mockito.doNothing().when(productRepository).deleteById(existingId);
 	    Mockito.doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);
+	    Mockito.doThrow(DataIntegrityViolationException.class).when(productRepository).deleteById(dependentId);
+	
+	}
+	
+	@Test
+	public void deleteShouldThrowDatabaseExceptionWhenDependentId() {
+		
+		Assertions.assertThrows(DatabaseException.class, () -> {
+			service.delete(dependentId);
+		});
+		
+		Mockito.verify(productRepository, Mockito.times(1)).deleteById(dependentId);
 	}
 	
 	@Test
