@@ -45,7 +45,7 @@ public class ProductResource {
     public ResponseEntity<List<ProductDTO>> findAllProduct(@RequestParam(required = false) String name) {
     	try {
     	
-	    	List<ProductDTO> listDTO= service.findAllPaged();
+	    	List<ProductDTO> listDTO= service.findAll();
 						
 			LOGGER.info("--------Executando operação de busca de produtos. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
 			return ResponseEntity.ok().body(listDTO);

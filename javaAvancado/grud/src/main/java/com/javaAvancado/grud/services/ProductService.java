@@ -33,7 +33,7 @@ public class ProductService {
 	
 	
 	@Transactional(readOnly = true)
-	public List<ProductDTO> findAllPaged() {
+	public List<ProductDTO> findAll() {
 		List<Product> list = repository.findAll();
 		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
