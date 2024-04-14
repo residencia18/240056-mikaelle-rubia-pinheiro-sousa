@@ -26,6 +26,7 @@ import com.javaAvancado.grud.resources.DTO.CategoryDTO;
 import com.javaAvancado.grud.resources.DTO.ProductDTO;
 import com.javaAvancado.grud.resources.form.CategoryForm;
 import com.javaAvancado.grud.resources.form.ProductForm;
+import com.javaAvancado.grud.services.ProductService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -36,114 +37,69 @@ public class ProductResource {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService service;
 	
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Transactional(readOnly= true)
     @GetMapping
     public ResponseEntity<List<ProductDTO>> findAllProduct(@RequestParam(required = false) String name) {
-		List<Product>listProduct = new ArrayList<>();
-		
-		if (name != null && !name.isEmpty()) {
-			 listProduct =  productRepository.findByName(name);
-			 if(listProduct.isEmpty()) {
-				 LOGGER.info("--------Executando operação de busca de Produtos. valor não encontrado. --------");
-			     return ResponseEntity.badRequest().build();
-			 }
-        } else {
-        	listProduct =  productRepository.findAll();
-        }
-		List<ProductDTO> listDTO = listProduct.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
-		LOGGER.info("--------Executando operação de busca de produtos. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
-		return ResponseEntity.ok().body(listDTO);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> findId(@PathVariable Long id) {
-        try {
-        	Product product = productRepository.getReferenceById(id);
-			
-        	ProductDTO productDTO = new ProductDTO(product, product.getCategories());
-			LOGGER.info("--------Executando operação de busca do produto com ID: {}");
-            return ResponseEntity.ok(productDTO);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
-    @PostMapping
-    public ResponseEntity<ProductDTO> insertProduct(@RequestBody ProductForm productFor, UriComponentsBuilder uriC) {
-    	 
     	try {
-    		Product product = productFor.createProduct();
-    		productRepository.save(product);
-    		
-    		
-			for( CategoryDTO categoryDTO : productFor.getCategories()) {
-				Category category = categoryRepository.getOne(categoryDTO.getId());
-				product.getCategories().add(category);
-			}
-			
-    		ProductDTO ProductDTO = new ProductDTO(product);
-    		
-    		URI uri = uriC.path("/produtos/{id}").buildAndExpand(product.getId()).toUri();
-    		
-    		LOGGER.info("--------Inserindo nova produto: {}", productFor.getName());
-    		return ResponseEntity.created(uri).body(ProductDTO);
-    		
-        } catch (Exception e) {
-        	return ResponseEntity.notFound().build();
-        }
-    }
-     
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductForm productForm) {
-		try {
-			Product product = productRepository.getReferenceById(id);
-			product.setName(productForm.getName());
-			product.setDescription(productForm.getDescription());
-			product.setImgUrl(productForm.getImgUrl());
-			product.setDate(productForm.getDate());
-			product.setPrice(productForm.getPrice());
-			
-			product.getCategories().clear();
-			
-			for( CategoryDTO categoryDTO : productForm.getCategories()) {
-				Category category = categoryRepository.getOne(categoryDTO.getId());
-				product.getCategories().add(category);
-			}
-			
-			productRepository.save(product);
-			ProductDTO productDTO = new ProductDTO(product);
-    		LOGGER.info("Atualizando produto com ID {}: {}", id, productForm.getName());
-    		
-            return ResponseEntity.ok(productDTO);
-			
-	    } catch (Exception e) {
+    	
+	    	List<ProductDTO> listDTO= service.findAllPaged();
+						
+			LOGGER.info("--------Executando operação de busca de produtos. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
+			return ResponseEntity.ok().body(listDTO);
+		}catch (Exception e) { 
 	        return ResponseEntity.notFound().build();
 	    }
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-    	try {
-    		
-    		 Product product = productRepository.getReferenceById(id);
-    		 ProductDTO productDTO = new ProductDTO(product, product.getCategories());
+	@GetMapping("/{id}")
+	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
+		try {
+			ProductDTO dto = service.findById(id);
+			LOGGER.info("--------Executando operação de busca do produto com ID: {}" + id);
+			return ResponseEntity.ok().body(dto);
+		}catch (Exception e) { 
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+	
+	@PostMapping
+	public ResponseEntity<ProductDTO> insert(@RequestBody ProductForm productFor, UriComponentsBuilder uriC) {
+		try {
+			
+			ProductDTO productDTO  = service.insert(productFor);
+			URI uri = uriC.path("/produtos/{id}").buildAndExpand(productDTO.getId()).toUri();
+			LOGGER.info("--------Inserindo nova produto: {}", productFor.getName());
+			return ResponseEntity.created(uri).body(productDTO);
+		}catch (Exception e) { 
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 
-    	     productRepository.delete(product);
+	@PutMapping("/{id}")
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductForm productFor) {
+		try {
+			ProductDTO productDTO  = service.update(id, productFor);
+			return ResponseEntity.ok().body(productDTO);
+			
+		}catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+	}
 
-			return ResponseEntity.noContent().build(); 
-            
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		try {
+			service.delete(id);
+			return ResponseEntity.noContent().build();
         }catch (Exception e) {
             LOGGER.error("Erro ao excluir a Produto com ID " + id, e);
             return ResponseEntity.notFound().build();
         }
-    
-    }
+	}
     
     
     @DeleteMapping("/")

@@ -23,7 +23,7 @@ import com.javaAvancado.grud.resources.form.CategoryForm;
 
 @Service
 public class CategoryService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
+
 	@Autowired
 	private CategoryRepository repository;
 	
