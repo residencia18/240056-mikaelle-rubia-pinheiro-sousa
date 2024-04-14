@@ -93,6 +93,7 @@ public class ProductResource {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		try {
+			
 			service.delete(id);
 			return ResponseEntity.noContent().build();
         }catch (Exception e) {
