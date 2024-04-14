@@ -98,7 +98,7 @@ public class ProductResource {
         }catch (Exception e) {
             LOGGER.error("Erro ao excluir a Produto com ID " + id, e);
             return ResponseEntity.notFound().build();
-        }
+        } 
 	}
     
     
