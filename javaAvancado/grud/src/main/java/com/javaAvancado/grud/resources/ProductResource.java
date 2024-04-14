@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,17 +131,17 @@ public class ProductResource {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
     	try {
-	        Product Product = productRepository.getReferenceById(id);
-	        if (Product == null) {
-	            throw new EntityNotFoundException("Produto com o ID " + id + " não encontrada.");
-	        }
-	        productRepository.delete(Product);
-	        LOGGER.info("Produto com ID {} foi excluída com sucesso.", id);
+    		
+    		 Product product = productRepository.getReferenceById(id);
+    		 ProductDTO productDTO = new ProductDTO(product, product.getCategories());
+
+    	     productRepository.delete(product);
+
 			return ResponseEntity.noContent().build(); 
-		
-        } catch (Exception e) {
+            
+        }catch (Exception e) {
             LOGGER.error("Erro ao excluir a Produto com ID " + id, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.notFound().build();
         }
     
     }

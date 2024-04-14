@@ -1,17 +1,18 @@
-package com.javaAvancado.grud;
+package com.javaAvancado.grud.tests.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.javafaker.Faker;
+import com.javaAvancado.grud.GrudApplication;
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.entities.Product;
 
@@ -19,10 +20,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
-
-
-class ProductTests {
-
+public class ProductTests {
 	 private static final Faker faker = new Faker();
 	 private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
 	 private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

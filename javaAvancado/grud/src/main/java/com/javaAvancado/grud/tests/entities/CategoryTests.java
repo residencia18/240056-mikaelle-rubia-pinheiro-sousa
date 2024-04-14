@@ -1,26 +1,22 @@
-package com.javaAvancado.grud;
+package com.javaAvancado.grud.tests.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.javafaker.Faker;
+import com.javaAvancado.grud.GrudApplication;
 import com.javaAvancado.grud.entities.Category;
-import com.javaAvancado.grud.entities.Product;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
-@SpringBootTest
 public class CategoryTests {
-
 	private static final Faker faker = new Faker(new Locale("py-br"));
 	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
 	 private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -51,7 +47,4 @@ public class CategoryTests {
         assertEquals("Valor do campo name não pode ser null ou vazio", violation.getMessage());
               
     }
-
-	
-	
 }
