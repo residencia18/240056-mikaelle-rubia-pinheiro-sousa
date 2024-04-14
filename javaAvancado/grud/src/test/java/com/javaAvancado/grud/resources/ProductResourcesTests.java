@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.javaAvancado.grud.exceptions.DatabaseException;
 import com.javaAvancado.grud.exceptions.ResourceNotFoundException;
@@ -74,6 +75,8 @@ public class ProductResourcesTests {
 		Mockito.doThrow(ResourceNotFoundException.class).when(service).delete(nonExistingId);
 		Mockito.doThrow(DatabaseException.class).when(service).delete(dependentId);
 		
+		Mockito.when(service.insert(Mockito.any())).thenReturn(productDTO);
+		
 	}
 	
 
@@ -95,6 +98,23 @@ public class ProductResourcesTests {
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isNotFound());
+	}
+	
+	@Test
+	public void insertShouldReturnProductDTOCreated() throws Exception {
+		
+		String jsonBody = objectMapper.writeValueAsString(productForm);
+		
+		ResultActions result = 
+				mockMvc.perform(post("/produtos/")
+					.content(jsonBody)
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON));
+		
+		result.andExpect(status().isCreated());
+		result.andExpect(jsonPath("$.id").exists());
+		result.andExpect(jsonPath("$.name").exists());
+		result.andExpect(jsonPath("$.description").exists());
 	}
 	
 	@Test
