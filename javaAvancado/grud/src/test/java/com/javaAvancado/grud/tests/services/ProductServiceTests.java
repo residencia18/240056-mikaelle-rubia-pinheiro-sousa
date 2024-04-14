@@ -59,6 +59,26 @@ public class ProductServiceTests {
 	}
 	
 	@Test
+	public void findAllShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+	    Assertions.assertThrows(Exception.class, () -> {
+	        service.findById(nonExistingId);
+	    });
+	    
+	    Mockito.verify(productRepository, Mockito.times(1)).findById(nonExistingId);
+	    
+	}
+
+	@Test
+	public void findShouldDoNothingWhenIdExists() {
+	    Assertions.assertDoesNotThrow(() -> {
+	        service.findById(existingId);
+	    });
+	    
+	    Mockito.verify(productRepository, Mockito.times(1)).findById(existingId);
+	    
+	}
+	
+	@Test
 	public void findAllShouldReturnList() {
 		
 		List<ProductDTO> result = service.findAll();
