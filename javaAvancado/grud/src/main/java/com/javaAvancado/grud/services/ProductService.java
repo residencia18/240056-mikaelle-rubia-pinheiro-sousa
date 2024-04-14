@@ -83,7 +83,8 @@ public class ProductService {
 	
 	public void delete(Long id) {
 		try {
-			repository.deleteById(id);
+			Optional<Product> entity = repository.findById(id);
+			repository.delete(entity.get());
 		}
 		catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
