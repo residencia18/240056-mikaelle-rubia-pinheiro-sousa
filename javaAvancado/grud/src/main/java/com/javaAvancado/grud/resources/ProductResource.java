@@ -31,7 +31,7 @@ import com.javaAvancado.grud.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/produtos/")
+@RequestMapping("/produtos/v1")
 public class ProductResource {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
@@ -41,24 +41,40 @@ public class ProductResource {
 	
 
     @Transactional(readOnly= true)
-    @GetMapping
-    public ResponseEntity<List<ProductDTO>> findAllProduct(@RequestParam(required = false) String name) {
+    @GetMapping()
+    public ResponseEntity<List<ProductDTO>> findAllProductV1() {
     	try {
     	
 	    	List<ProductDTO> listDTO= service.findAll();
 						
-			LOGGER.info("--------Executando operação de busca de produtos. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
+			LOGGER.info("--------Executando operação de busca de produtos da Versão 1");
 			return ResponseEntity.ok().body(listDTO);
 		}catch (Exception e) { 
 	        return ResponseEntity.notFound().build();
 	    }
     }
     
+    @Transactional(readOnly= true)
+   
+    @GetMapping(params = "version=2")
+    public ResponseEntity<List<ProductDTO>> findAllProduct(@RequestParam(required = false) String name) {
+    	try {
+    	
+	    	List<ProductDTO> listDTO= service.findAll();
+						
+			LOGGER.info("--------Executando operação de busca de produtos da Versão 2");
+			return ResponseEntity.ok().body(listDTO);
+		}catch (Exception e) { 
+	        return ResponseEntity.notFound().build();
+	    }
+    }
+    
+    
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
 		try {
 			ProductDTO dto = service.findById(id);
-			LOGGER.info("--------Executando operação de busca do produto com ID: {}" + id);
+			LOGGER.info("--------Versão 1: Executando operação de busca do produto com ID: {}" + id);
 			return ResponseEntity.ok().body(dto);
 		}catch (Exception e) { 
 	        return ResponseEntity.notFound().build();
@@ -71,7 +87,7 @@ public class ProductResource {
 			
 			ProductDTO productDTO  = service.insert(productFor);
 			URI uri = uriC.path("/produtos/{id}").buildAndExpand(productDTO.getId()).toUri();
-			LOGGER.info("--------Inserindo nova produto: {}", productFor.getName());
+			LOGGER.info("--------Versão 1: Inserindo nova produto: {}", productFor.getName());
 			return ResponseEntity.created(uri).body(productDTO);
 		}catch (Exception e) { 
 	        return ResponseEntity.notFound().build();
@@ -82,6 +98,7 @@ public class ProductResource {
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductForm productFor) {
 		try {
 			ProductDTO productDTO  = service.update(id, productFor);
+			LOGGER.info("--------Versão 1: Update de produto");
 			return ResponseEntity.ok().body(productDTO);
 			
 		}catch (Exception e) {
@@ -97,7 +114,7 @@ public class ProductResource {
 			service.delete(id);
 			return ResponseEntity.noContent().build();
         }catch (Exception e) {
-            LOGGER.error("Erro ao excluir a Produto com ID " + id, e);
+            LOGGER.error("Versão 1: Erro ao excluir a Produto com ID " + id, e);
             return ResponseEntity.notFound().build();
         } 
 	}
