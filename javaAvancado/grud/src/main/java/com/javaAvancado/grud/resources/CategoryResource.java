@@ -1,30 +1,21 @@
 package com.javaAvancado.grud.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.bind.annotation.*;
 
-import com.github.javafaker.Faker;
-import com.javaAvancado.grud.GrudApplication;
-import com.javaAvancado.grud.entities.Category;
-import com.javaAvancado.grud.repository.CategoryRepository;
+
 import com.javaAvancado.grud.resources.DTO.CategoryDTO;
 import com.javaAvancado.grud.resources.form.CategoryForm;
 import com.javaAvancado.grud.services.CategoryService;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -34,7 +25,7 @@ import org.springframework.data.domain.Sort.Direction;
 public class CategoryResource {
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryResource.class);
 	
 	@Autowired
 	private CategoryService service;
@@ -42,18 +33,20 @@ public class CategoryResource {
 	
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> findAll(@RequestParam(required = false) String name) {
+    public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0" ) Integer page,
+    		@RequestParam(value = "linesPerPage", defaultValue = "12" ) Integer linesPerPage,
+    		@RequestParam(value = "direction", defaultValue = "ASC" ) String direction,
+    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy) {
     	try {
-    		List<CategoryDTO> list = new ArrayList<>();
+    		
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),  orderBy);
 
-    		if (name != null && !name.isEmpty()) {
-    			list = service.findByName(name);
-    		}else {
-    			list = service.findAll();
+    		Page<CategoryDTO> list;
 
-    		}
+    		list = service.findAll(pageRequest );
+
 				
-			LOGGER.info("--------Executando operação de busca de categorias. Parâmetro de filtro: {}", name != null ? name : "Nenhum filtro aplicado.-------");
+			LOGGER.info("--------Executando operação de busca de categorias.");
 			return ResponseEntity.ok().body(list);
 			
         } catch (Exception e) {

@@ -1,0 +1,79 @@
+<div class="form-container">
+    <form id="formComum" (ngSubmit)="onSubmit()" #formulario="ngForm">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" ngModel required minlength="3" maxlength="12"  #nome="ngModel">
+            <span *ngIf="!nome.valid && nome.touched" class="error-message">
+                Escreva no mínimo 3 e no máximo 12 caracteres no nome.
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" ngModel required minlength="4" #senha="ngModel">
+            <span *ngIf="!senha.valid && senha.touched" class="error-message">
+                Escreva no mínimo 4 caracteres na senha.
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" name="email" ngModel required email #email="ngModel">
+            <span *ngIf="!email.valid && email.touched" class="error-message">
+                Entre com um email válido.
+            </span>
+        </div>
+        
+        <div class="form-group">
+            <label for="nome_completo">Nome Completo:</label>
+            <input type="text" id="nome_completo" name="nome_completo" ngModel minlength="8"  required #nome_completo="ngModel">
+        </div>
+
+        <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" ngModel required pattern="^\d{2}-\d{5}-\d{4}$" #telefone="ngModel">
+            <span *ngIf="!telefone.valid && telefone.touched" class="error-message">
+                Telefone deve ser no padrão brasileiro (99-99999-9999).
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" ngModel required pattern="^[a-zA-Z0-9\s,.'-]+$" #endereco="ngModel">
+            <span *ngIf="!endereco.valid && endereco.touched" class="error-message">
+                Por favor, insira um endereço válido.
+            </span>
+        </div>
+        
+        <div class="form-group">
+            <label for="data_nascimento">Data nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" ngModel required #data_nascimento="ngModel">
+            <span *ngIf="!data_nascimento.valid && data_nascimento.touched" class="error-message">
+                Data de Nascimento é obrigatória e o usuário deve ter no mínimo 18 anos.
+            </span>
+            <span *ngIf="menor_idade">
+                Usuário deve ter no mínimo 18 anos
+            </span>
+        </div>
+        
+        <div class="form-group">
+            <label for="genero">Gênero:</label>
+            <select id="genero" name="genero" ngModel required #genero="ngModel">
+                <option value="feminino">Feminino</option>
+                <option value="masculino">Masculino</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="profissao">Profissão:</label>
+            <input type="text" id="profissao" name="profissao" ngModel required #profissao="ngModel">
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <span *ngIf="dados_formulario !== ''">
+        Dados em formato JSON
+        {{ dados_formulario }}
+    </span>
+</div>

@@ -1,0 +1,126 @@
+
+<div class="grid">
+  <div class="col-12">
+    <p-card
+    header="Historico da Sessão"
+    styleClass="shadow-3 m-5 text-indigo-800"
+    >
+    <p-table
+    #HistoricoTable
+    [value]="Sessao_"
+    [rows]="10"
+    [paginator]="true"
+    [responsive]="true"
+    [globalFilterFields]="['dataPesagem','pesoKg']"
+    [tableStyle]="{'min-width': '75rem'}"
+    [(selection)]="SessaoSelected"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    data="id"
+    currentPageReportTemplate="Mostrando {first} de {last} de sessões"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="data_atividade">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Data da Sessão
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="data_atividade"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="data_atividade"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+
+        <th pSortableColumn="pesoKg">
+          <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center">
+              Descrição
+            </div>
+            <div class="flex justify-content-between align-items-center">
+              <p-sortIcon field="descricao"></p-sortIcon>
+              <p-columnFilter
+              type="text"
+              field="pesoKg"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              ></p-columnFilter>
+            </div>
+        </div>
+        </th>
+
+        <div class="flex justify-content-center">
+          <p-button
+          styleClass="p-button-info"
+          icon="pi pi-plus"
+          label="Adicionar"
+          pTooltip="Adicionar produto"
+          tooltipPosition="top"
+          (onClick)="handleSessaoEvent(addSessaovent)"
+          >
+          </p-button>
+        </div>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-sessao_>
+      <tr >
+        <td>{{ sessao_.data }}</td>
+        <td>{{ sessao_.descricao }}</td>
+        <td>
+          <div class="flex justify-content-center grap-3 align-content-center align-items-center">
+            <button
+            pButton
+            pRipple
+            icon="pi pi-history"
+            pTooltip="Detalhes da Sessão"
+            tooltipPosition="top"
+            class = "p-button-secondary"
+            routerLink="/detalhesSessao"
+            routerLinkActive="exact_route"
+            (click)="handleSessaoDetalhesEvent(editSessaovent, sessao_.id)"
+            ></button>
+
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-secondary"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              (click)="handleSessaoEvent(editSessaovent, sessao_.id)"
+            ></button>
+
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-danger"
+              pTooltip="Remover"
+              tooltipPosition="top"
+              (click)="handleDeleteSessao(sessao_.id, sessao_.descricao)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+
+    </ng-template>
+    </p-table>
+  </p-card>
+
+  </div>
+
+</div>

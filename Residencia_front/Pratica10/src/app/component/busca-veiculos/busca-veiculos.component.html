@@ -1,0 +1,23 @@
+
+<div class="container_busca_veiculos">
+  <app-arquivos-json  (sendValue)="buscarVeiculos($event)" ></app-arquivos-json>
+    
+    <div  class="buttons-column-buscar">
+        <h1 [ngStyle]="{'backgroundColor': backgroundColor_,'padding': padding_,'color': color_,'fontFamily': fontFamily_,
+            'marginTop': marginTop_,'border': border_,'textAlign': textAlign_, 'line-height': '30px','border-radius': '10px'
+          }">
+            {{ titutoTop }}
+          </h1>
+        <div #buscaCategoria *ngFor="let categoria of categorias">
+            <p [ngStyle]="{'display': 'flex', 'flex-direction': 'column','gap': '8px','padding': '5px 5px','margin-top': '5px'
+            ,'background-color': 'rgb(179, 118, 235)', 'cursor': 'pointer', 'textAlign': textAlign_,'border-radius': '10px'} " (click)="handleCategoriaClick(categoria)">
+            {{ categoria }}</p>
+            
+        </div>
+    </div>
+    
+</div>
+
+
+
+

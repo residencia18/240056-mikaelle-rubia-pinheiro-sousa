@@ -1,0 +1,78 @@
+commit b5c0097f0fe8dcc7daca4189af60c502dcc1aae8
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Mon Jan 8 16:42:35 2024 -0300
+
+    pipo
+
+commit 43cbd4c83c1a05c5adc6a3de0da321e70184dc6b
+Author: mikaelle1992 <mikaelle.rubiaps02@gmail.com>
+Date:   Thu Dec 28 20:27:08 2023 -0300
+
+    feature: botão do topo, com o valor de escolha
+
+commit 2c8345b88731b00b22f5e0c5c2256255076d55d6
+Author: mikaelle1992 <mikaelle.rubiaps02@gmail.com>
+Date:   Wed Dec 27 19:11:27 2023 -0300
+
+    feature: limpa span
+
+commit 2c5fd03549181f55775a011210fcfa0985ab1127
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Wed Dec 27 13:17:33 2023 -0300
+
+    fix: criarElementosBotao
+
+commit 27d0029a54318a1b0212a4d66dd6976e08927a1a
+Merge: 77beaa6 e4e0dc1
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Tue Dec 26 22:23:28 2023 -0300
+
+    Merge branch 'main' of https://github.com/mikaelleRubia/Residencia_front
+
+commit 77beaa6397497882d39f1fab2816dfaf68bdea27
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Tue Dec 26 22:22:27 2023 -0300
+
+    pratica07
+
+commit e4e0dc1c453f7668c26932626c031b2ca02e02ee
+Author: mikaelle1992 <mikaelle.rubiaps02@gmail.com>
+Date:   Fri Dec 22 20:51:53 2023 -0300
+
+    DOM
+
+commit 835f00fb617293684bc7d942f1cfff71fd5ccada
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Fri Dec 22 11:57:15 2023 -0300
+
+    innerHTML e appendChild
+
+commit f624826873e6f8345c86ef3999926e79f245a0de
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Fri Dec 22 10:20:53 2023 -0300
+
+     botão
+
+commit 6333459c466ab955bd52cd1ee738b0a377eca83f
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Thu Dec 21 09:25:17 2023 -0300
+
+    DOM
+
+commit b9979b93464f9096bc4b95fd7d750335aa0ec50a
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Mon Dec 11 17:05:24 2023 -0300
+
+    feature: angular
+
+commit 2167bc71d58b48e05a9821c8cc1c79819cd72029
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Fri Dec 8 12:56:48 2023 -0300
+
+    pratica em sala
+
+commit 0a9932cae49027d52a4ea60c55832dfb03df5dcc
+Author: mikaelleRubia <mikaelle.rubia@outlook.com>
+Date:   Fri Dec 8 12:15:11 2023 -0300
+
+    praticas do modulo02

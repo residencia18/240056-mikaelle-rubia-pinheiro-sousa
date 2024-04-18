@@ -1,0 +1,13 @@
+<h2 [ngStyle] = "{'font-size': size +'px', 'font-family': font, 'color': color_ }" >
+    testando diretiva de estilos / syle
+</h2>
+
+
+<ul>
+    <li *ngFor="let animal of animals">
+        Nome: {{animal.name }} - {{animal.type}}
+        <button (click) = "ShowAge(animal)">Show age</button>
+        
+    </li>
+</ul>
+

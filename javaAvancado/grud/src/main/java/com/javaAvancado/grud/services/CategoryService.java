@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.javaAvancado.grud.GrudApplication;
+
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.exceptions.DatabaseException;
 import com.javaAvancado.grud.exceptions.ResourceNotFoundException;
@@ -28,12 +28,9 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	@Transactional(readOnly = true)
-	public List<CategoryDTO> findAll() {
-	    List<Category> listCategory;
-	  
-        listCategory = repository.findAll();
-	    List<CategoryDTO> listDTO = listCategory.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-	    return listDTO;
+	public Page<CategoryDTO> findAll(PageRequest pageRequest) {
+		Page<Category> listCategory = repository.findAll(pageRequest);
+	    return  listCategory.map(x -> new CategoryDTO(x));
 	}
 	
 	@Transactional

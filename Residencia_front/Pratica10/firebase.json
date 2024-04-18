@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/pratica10/",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "dist/pratica10/",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

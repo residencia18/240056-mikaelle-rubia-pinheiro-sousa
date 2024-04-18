@@ -1,0 +1,16 @@
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-right: 10px;
+    width: 70%; 
+    height: 50%; 
+
+
+}
+.buttons-column-Nome {
+    grid-column:2 / span 1; /* Inicia na coluna 2 e ocupa 1 coluna */
+    padding: '5px, 5px';
+
+} 
+

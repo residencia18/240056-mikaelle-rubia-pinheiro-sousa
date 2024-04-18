@@ -1,0 +1,8 @@
+<app-toolbar-navigation></app-toolbar-navigation>
+
+<app-suino-table [suinos]="suinosList"
+(suinosEvent)="handleSuinoEvent($event)"
+(EventActionPeso)="handlePesoEvent($event)"
+(deletsuinosEvent)="handleDeleteSuino($event)"
+></app-suino-table>
+<p-confirmDialog [style] = "{with: '50ve'}"></p-confirmDialog>

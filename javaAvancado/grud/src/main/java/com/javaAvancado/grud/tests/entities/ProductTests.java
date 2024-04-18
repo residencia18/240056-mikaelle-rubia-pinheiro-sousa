@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.javafaker.Faker;
-import com.javaAvancado.grud.GrudApplication;
 import com.javaAvancado.grud.entities.Category;
 import com.javaAvancado.grud.entities.Product;
 
@@ -22,7 +21,7 @@ import jakarta.validation.Validator;
 
 public class ProductTests {
 	 private static final Faker faker = new Faker();
-	 private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
+	 private static final Logger LOGGER = LoggerFactory.getLogger(ProductTests.class);
 	 private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 	 
     @Test

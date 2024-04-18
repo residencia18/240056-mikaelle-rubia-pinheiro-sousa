@@ -1,0 +1,32 @@
+<h2>Formulario PetShop</h2>
+<div class="form-container">
+    <form [formGroup]="clientePetForm" (ngSubmit)=" onSubmit()"  class="ordemFormulario">
+      <div class="inputForm">
+        <input type="text" formControlName="nomeTutor" placeholder="Nome Tutor">
+      </div>
+      <div class="inputForm">
+        <input type="text" formControlName="nomeAnimal" placeholder="Nome Animal">
+      </div>
+      <div class="inputForm">
+        <input type="text" formControlName="idade" placeholder="Idade do animal">
+      </div>
+      <div class="inputForm">
+        <input type="text" formControlName="raca" placeholder="Raça do animal">
+      </div>
+      <div class="inputForm">
+        <input type="text" formControlName="peso" placeholder="Peso do animal">
+      </div>
+      <div class="inputForm">
+        <textarea formControlName="historico" placeholder="Historico do animal"></textarea>
+      </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+</div>
+
+
+<div>
+    {{nomeTutor}}
+</div>
+

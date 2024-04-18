@@ -1,0 +1,2 @@
+Joao,  joao@email, 10, 10
+ana, ana@gmail.com, 6.9, 8.9

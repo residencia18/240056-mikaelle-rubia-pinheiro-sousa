@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.javafaker.Faker;
-import com.javaAvancado.grud.GrudApplication;
 import com.javaAvancado.grud.entities.Category;
 
 import jakarta.validation.ConstraintViolation;
@@ -18,7 +17,7 @@ import jakarta.validation.Validator;
 
 public class CategoryTests {
 	private static final Faker faker = new Faker(new Locale("py-br"));
-	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryTests.class);
 	 private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 	
 	@Test

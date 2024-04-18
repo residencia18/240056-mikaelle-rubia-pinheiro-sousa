@@ -3,6 +3,7 @@ package com.javaAvancado.grud.tests.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.javaAvancado.grud.entities.Product;
@@ -37,6 +42,7 @@ public class ProductServiceTests {
 	private long dependentId;
 	private List<Product> productList;
 	private Product product;
+	private PageImpl<Product> page;
 	
 	@BeforeEach
 	void setUp() throws Exception{
@@ -46,8 +52,9 @@ public class ProductServiceTests {
 	    productList = new ArrayList<>();
 	    product = Factory.createProduct();
 	    productList.add(product);
+	    page = new PageImpl<>(List.of(product));
 	    
-	    Mockito.when(productRepository.findAll()).thenReturn(productList);
+	    Mockito.when(productRepository.findAll((Pageable)any())).thenReturn(page);
 	    
 		Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
 		Mockito.when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
@@ -80,12 +87,13 @@ public class ProductServiceTests {
 	
 	@Test
 	public void findAllShouldReturnList() {
+		PageRequest pageRequest = PageRequest.of(0, 12);
 		
-		List<ProductDTO> result = service.findAll();
+		Page<ProductDTO> result = service.findAll(pageRequest);
 		
 		Assertions.assertNotNull(result);
 		
-		Mockito.verify(productRepository,  Mockito.times(1)).findAll();
+		Mockito.verify(productRepository,  Mockito.times(1)).findAll(pageRequest);
 		
 	}
 	

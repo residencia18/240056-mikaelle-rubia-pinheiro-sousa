@@ -1,40 +1,29 @@
 package com.javaAvancado.grud.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.javaAvancado.grud.GrudApplication;
-import com.javaAvancado.grud.entities.Category;
-import com.javaAvancado.grud.entities.Product;
-import com.javaAvancado.grud.entities.Product;
-import com.javaAvancado.grud.repository.CategoryRepository;
-import com.javaAvancado.grud.repository.ProductRepository;
-import com.javaAvancado.grud.resources.DTO.CategoryDTO;
 import com.javaAvancado.grud.resources.DTO.ProductDTO;
-import com.javaAvancado.grud.resources.form.CategoryForm;
+
 import com.javaAvancado.grud.resources.form.ProductForm;
 import com.javaAvancado.grud.services.ProductService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/produtos/v1")
 public class ProductResource {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(GrudApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductResource.class);
 	
 	@Autowired
 	private ProductService service;
@@ -42,10 +31,15 @@ public class ProductResource {
 
     @Transactional(readOnly= true)
     @GetMapping()
-    public ResponseEntity<List<ProductDTO>> findAllProductV1() {
+    public ResponseEntity<Page<ProductDTO>> findAllProductV1(@RequestParam(value = "page", defaultValue = "0" ) Integer page,
+    		@RequestParam(value = "linesPerPage", defaultValue = "12" ) Integer linesPerPage,
+    		@RequestParam(value = "direction", defaultValue = "ASC" ) String direction,
+    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy
+    		) {
     	try {
-    	
-	    	List<ProductDTO> listDTO= service.findAll();
+    		
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),  orderBy);
+	    	Page<ProductDTO> listDTO= service.findAll(pageRequest);
 						
 			LOGGER.info("--------Executando operação de busca de produtos da Versão 1");
 			return ResponseEntity.ok().body(listDTO);
@@ -57,10 +51,14 @@ public class ProductResource {
     @Transactional(readOnly= true)
    
     @GetMapping(params = "version=2")
-    public ResponseEntity<List<ProductDTO>> findAllProduct(@RequestParam(required = false) String name) {
+    public ResponseEntity<Page<ProductDTO>> findAllProduct(@RequestParam(value = "page", defaultValue = "0" ) Integer page,
+    		@RequestParam(value = "linesPerPage", defaultValue = "12" ) Integer linesPerPage,
+    		@RequestParam(value = "direction", defaultValue = "ASC" ) String direction,
+    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy) {
     	try {
     	
-	    	List<ProductDTO> listDTO= service.findAll();
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),  orderBy);
+	    	Page<ProductDTO> listDTO= service.findAll(pageRequest);
 						
 			LOGGER.info("--------Executando operação de busca de produtos da Versão 2");
 			return ResponseEntity.ok().body(listDTO);

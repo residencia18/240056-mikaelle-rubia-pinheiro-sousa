@@ -1,12 +1,13 @@
 package com.javaAvancado.grud.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +34,9 @@ public class ProductService {
 	
 	
 	@Transactional(readOnly = true)
-	public List<ProductDTO> findAll() {
-		List<Product> list = repository.findAll();
-		List<ProductDTO> listDTO = list.stream().map(x -> new ProductDTO(x, x.getCategories() )).collect(Collectors.toList());
+	public Page<ProductDTO> findAll(PageRequest pageRequest) {
+		Page<Product> list = repository.findAll(pageRequest);
+		Page<ProductDTO> listDTO = list.map(x -> new ProductDTO(x, x.getCategories() ));
 		return listDTO;
 	}
 	

@@ -1,0 +1,27 @@
+<div class="container">
+    <app-categoria-escolhida (sendListaCaracter)="listaCaracter($event)"></app-categoria-escolhida>
+    <div class="buttons-column-lista-caracter" [ngStyle]="{
+        'display': 'flex',
+        'flex-direction': 'column',
+        'gap': '8px',
+        'padding': padding_,
+        'margin-top': marginTop_,
+        'background-color': backgroundColor_,
+        'text-align': textAlign_,
+        'border-radius': '10px'
+    }">
+
+        <div #buscaCaracter *ngFor="let categoria of listaValores">
+            <span  (click)="listaCaracter(categoria)">
+                {{ categoria }}
+            </span>
+            
+        </div>
+        
+    </div>
+    <button class="buscaInput" type="button" *ngIf="listaValores.length > 0" [ngStyle]="{
+        'padding': 'padding_button',
+        'margin-top': 'marginTopButton_',
+        'background-color': 'backgroundColorButton_'
+    }"(click)="salvarArquivo()">{{titulo_botao }}</button>
+</div>

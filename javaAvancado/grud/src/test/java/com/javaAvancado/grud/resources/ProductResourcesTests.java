@@ -2,7 +2,7 @@ package com.javaAvancado.grud.resources;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -51,6 +52,7 @@ public class ProductResourcesTests {
 	private ProductForm productForm;
 	private Long nonExistingId;
 	private Long dependentId;
+	private PageImpl<ProductDTO> page;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -63,8 +65,9 @@ public class ProductResourcesTests {
 	    productList.add(product);
 	    productDTO = Factory.createProductDTO();
 	    productForm = Factory.createProductForm();
+	    page = new PageImpl<>(List.of(product));
 	    
-		Mockito.when(service.findAll()).thenReturn(productList);
+		Mockito.when(service.findAll(any())).thenReturn(page);
 		Mockito.when(service.findById(existingId)).thenReturn(productDTO);
 		Mockito.when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
 
