@@ -31,27 +31,30 @@ public class CategoryResource {
 	private CategoryService service;
 	
 	
-
-    @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0" ) Integer page,
-    		@RequestParam(value = "linesPerPage", defaultValue = "12" ) Integer linesPerPage,
-    		@RequestParam(value = "direction", defaultValue = "ASC" ) String direction,
-    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy) {
-    	try {
-    		
-    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),  orderBy);
-
-    		Page<CategoryDTO> list;
-
-    		list = service.findAll(pageRequest );
-
-				
-			LOGGER.info("--------Executando operação de busca de categorias.");
-			return ResponseEntity.ok().body(list);
-			
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+	@GetMapping
+	public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	        @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+	        @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+	        @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+	        @RequestParam(value = "name", required = false) String name) {
+	    try {
+	        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+	        Page<CategoryDTO> list;
+	        if (name != null && !name.isEmpty()) {
+	            list = service.findByName(name, pageRequest);
+	        } else {
+	            list = service.findAll(pageRequest);
+	        }
+	        
+	        if (list.isEmpty()) {
+	            return ResponseEntity.noContent().build();
+	        }
+	        LOGGER.info("Executando operação de busca de categorias.");
+	        return ResponseEntity.ok().body(list);
+	    } catch (IllegalArgumentException e) {
+	        LOGGER.error("Parâmetros de paginação ou ordenação inválidos: {}", e.getMessage());
+	        return ResponseEntity.notFound().build();
+	    } 
 	}
     
     
