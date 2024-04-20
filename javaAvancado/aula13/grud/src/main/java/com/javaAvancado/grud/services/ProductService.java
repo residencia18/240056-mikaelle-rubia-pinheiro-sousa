@@ -89,12 +89,15 @@ public class ProductService {
 		}		
 	}
 	
+	@Transactional
 	public void delete(Long id) {
 	    try {
+	    	Product existingProduct = repository.findById(id)
+                    .orElseThrow(() -> new EmptyResultDataAccessException("Product not found with id: " + id, 1));
 	        repository.deleteById(id);
 	      
 	    } catch (EmptyResultDataAccessException e) {
-	        throw new ResourceNotFoundException("Id not found " + id);
+	        throw new ResourceNotFoundException("Product not found with id: " + id);
 	    } catch (DataIntegrityViolationException e) {
 	        throw new DatabaseException("Integrity violation");
 	    }

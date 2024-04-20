@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.javaAvancado.grud.entities.Product;
 import com.javaAvancado.grud.tests.Factory;
@@ -21,11 +23,13 @@ public class ProductRepositoryTests {
 	
 	private Long existingId;
 	private Long countTotalProducts;
+	private String name;
 	
 	@BeforeEach
 	void setUp() throws Exception{
 		existingId = 1L;
 		countTotalProducts = 25L;
+		name = "Smart TV";
 	}
 	
 	@Test
@@ -62,7 +66,18 @@ public class ProductRepositoryTests {
 		
 	}
 	
+	
+	
+	@Test
+	public void searchByNameWithReturnName(){
+		
+		 Page<Product> result = productRepository.findByName(PageRequest.of(0, 10), name );
+		 Assertions.assertFalse(result.isEmpty());
 
+	    Product product = result.getContent().get(0);
+	    Assertions.assertNotNull(product.getId());
+	    Assertions.assertEquals(name, product.getName());
+	}
 	
 	
 	
