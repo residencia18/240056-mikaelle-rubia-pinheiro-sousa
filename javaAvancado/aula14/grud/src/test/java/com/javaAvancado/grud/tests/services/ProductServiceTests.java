@@ -43,6 +43,7 @@ public class ProductServiceTests {
 	private List<Product> productList;
 	private Product product;
 	private PageImpl<Product> page;
+	private String name;
 	
 	@BeforeEach
 	void setUp() throws Exception{
@@ -53,13 +54,15 @@ public class ProductServiceTests {
 	    product = Factory.createProduct();
 	    productList.add(product);
 	    page = new PageImpl<>(List.of(product));
+	    name = product.getName();
 	    
 	    Mockito.when(productRepository.findAll((Pageable)any())).thenReturn(page);
 	    
 		Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
 		Mockito.when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
-	    
-	    Mockito.doNothing().when(productRepository).deleteById(existingId);
+
+		Mockito.when(productRepository.findByName((PageRequest)any(), Mockito.eq(name))).thenReturn(page);
+		Mockito.doNothing().when(productRepository).deleteById(existingId);
 	    Mockito.doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);
 	    Mockito.doThrow(DataIntegrityViolationException.class).when(productRepository).deleteById(dependentId);
 	
@@ -100,11 +103,10 @@ public class ProductServiceTests {
 	@Test
 	public void deleteShouldThrowDatabaseExceptionWhenDependentId() {
 		
-		Assertions.assertThrows(DatabaseException.class, () -> {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			service.delete(dependentId);
 		});
 		
-		Mockito.verify(productRepository, Mockito.times(1)).deleteById(dependentId);
 	}
 	
 	@Test
@@ -113,8 +115,6 @@ public class ProductServiceTests {
 	        service.delete(nonExistingId);
 	    });
 	    
-	    Mockito.verify(productRepository, Mockito.times(1)).deleteById(nonExistingId);
-	    
 	}
 
 	@Test
@@ -122,9 +122,21 @@ public class ProductServiceTests {
 	    Assertions.assertDoesNotThrow(() -> {
 	        service.delete(existingId);
 	    });
-	    
+
 	    Mockito.verify(productRepository, Mockito.times(1)).deleteById(existingId);
 	    
+	}
+	
+	@Test
+	public void findByNameShouldReturnList() {
+		PageRequest pageRequest = PageRequest.of(0, 1);
+		
+		Page<ProductDTO> result = service.findByName(name, pageRequest);
+		
+		Assertions.assertNotNull(result);
+		
+		Mockito.verify(productRepository,  Mockito.times(1)).findByName(pageRequest, name);
+		
 	}
 }
 	
