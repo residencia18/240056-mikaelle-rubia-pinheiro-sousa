@@ -15,12 +15,16 @@ import { MessageService } from 'primeng/api';
 import{AngularFireModule} from '@angular/fire/compat';
 import{AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { GraficosDetalhesAnimaisComponent } from './modules/graficos-detalhes-animais/graficos-detalhes-animais.component';
+import { GraticosDetalhesAnimaisHomeComponent } from './modules/GraficosDetalhesAnimais/pages/graticos-detalhes-animais-home/graticos-detalhes-animais-home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    GraficosDetalhesAnimaisComponent,
+    GraticosDetalhesAnimaisHomeComponent,
 
 
   ],
