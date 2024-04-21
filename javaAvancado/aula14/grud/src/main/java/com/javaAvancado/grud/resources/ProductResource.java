@@ -34,12 +34,21 @@ public class ProductResource {
     public ResponseEntity<Page<ProductDTO>> findAllProductV1(@RequestParam(value = "page", defaultValue = "0" ) Integer page,
     		@RequestParam(value = "linesPerPage", defaultValue = "12" ) Integer linesPerPage,
     		@RequestParam(value = "direction", defaultValue = "ASC" ) String direction,
-    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy
+    		@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy,
+    		@RequestParam(value = "name", required = false)  String name
     		) {
     	try {
     		
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),  orderBy);
-	    	Page<ProductDTO> listDTO= service.findAll(pageRequest);
+	    	Page<ProductDTO> listDTO;
+	    	if (name != null && !name.isEmpty()) {
+	    		listDTO = service.findByName(name, pageRequest);
+	    	}else {
+	    		listDTO = service.findAll(pageRequest);
+	    	}
+    	   if (listDTO.isEmpty()) {
+	            return ResponseEntity.noContent().build();
+	        }
 						
 			LOGGER.info("--------Executando operação de busca de produtos da Versão 1");
 			return ResponseEntity.ok().body(listDTO);

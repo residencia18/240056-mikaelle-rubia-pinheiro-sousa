@@ -1,9 +1,7 @@
 package com.javaAvancado.grud.services;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,13 +32,10 @@ public class CategoryService {
 	}
 	
 	@Transactional
-	public List<CategoryDTO> findByName(String name) {
-	    List<Category> listCategory =new ArrayList<>();
+	public Page<CategoryDTO> findByName(String name, PageRequest pageRequest) {
+		Page<Category> listCategory = repository.findByName(pageRequest, name);
 
-        listCategory = repository.findByName(name);
-	  
-	    List<CategoryDTO> listDTO = listCategory.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-	    return listDTO;
+	    return listCategory.map(x -> new CategoryDTO(x));
 	}
 	
 	@Transactional(readOnly = true)

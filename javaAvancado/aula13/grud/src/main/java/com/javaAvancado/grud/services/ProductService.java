@@ -36,8 +36,13 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAll(PageRequest pageRequest) {
 		Page<Product> list = repository.findAll(pageRequest);
-		Page<ProductDTO> listDTO = list.map(x -> new ProductDTO(x, x.getCategories() ));
-		return listDTO;
+		return  list.map(x -> new ProductDTO(x, x.getCategories()));
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<ProductDTO> findByName(String name, PageRequest pageRequest) {
+		Page<Product> list = repository.findByName(pageRequest, name);
+		return list.map(x -> new ProductDTO(x, x.getCategories()));
 	}
 	
 	@Transactional(readOnly = true)
@@ -84,12 +89,15 @@ public class ProductService {
 		}		
 	}
 	
+	@Transactional
 	public void delete(Long id) {
 	    try {
+	    	Product existingProduct = repository.findById(id)
+                    .orElseThrow(() -> new EmptyResultDataAccessException("Product not found with id: " + id, 1));
 	        repository.deleteById(id);
 	      
 	    } catch (EmptyResultDataAccessException e) {
-	        throw new ResourceNotFoundException("Id not found " + id);
+	        throw new ResourceNotFoundException("Product not found with id: " + id);
 	    } catch (DataIntegrityViolationException e) {
 	        throw new DatabaseException("Integrity violation");
 	    }
