@@ -18,15 +18,22 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { ChartModule } from 'primeng/chart';
 import { SharedModule } from '../../shared/shared.module';
-import { GraficosDetalhesAtividadePesagemComponent } from './components/graficos-detalhes-atividade-pesagem/graficos-detalhes-atividade-pesagem.component';
+
+import { GraficosSuinosComponent } from './components/graficos-suinos/graficos-suinos.component';
+import { GraticosDetalhesAnimaisHomeComponent } from './pages/graticos-detalhes-animais-home/graticos-detalhes-animais-home.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    GraficosDetalhesAtividadePesagemComponent
+    GraficosSuinosComponent,
+    GraticosDetalhesAnimaisHomeComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild(GRAFICOS_DETALHES_HOUTES),
     HttpClientJsonpModule,
     SidebarModule,
@@ -43,6 +50,7 @@ import { GraficosDetalhesAtividadePesagemComponent } from './components/graficos
     ToastModule,
     ChartModule,
     SharedModule
-  ]
+  ],
+  providers: [DialogService, ConfirmationService],
 })
 export class GraficosDetalhesAnimaisModule { }

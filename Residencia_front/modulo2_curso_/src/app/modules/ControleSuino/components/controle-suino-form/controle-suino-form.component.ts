@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SessaoDataTransferService } from '../../../../shared/service/sessao/sessao-data-transfer.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Importe FormGroup aqui
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
 import { EventActon } from '../../../../models/enum/suino-enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-controle-suino-form',
@@ -20,7 +20,8 @@ export class ControleSuinoFormComponent {
   public addBrincoForm: FormGroup;
 
   constructor(private suinoDtService: SuinoDataTransferService,
-              private formBuilder: FormBuilder){
+              private formBuilder: FormBuilder,
+              private router: Router){
 
     this.addBrincoForm = this.formBuilder.group({
       brincoSelected: ['', { validators: [Validators.required], updateOn: 'blur' }],
@@ -38,5 +39,10 @@ export class ControleSuinoFormComponent {
     this.sessaoEvent.emit(sessaoDetalheEventData);
     console.log("Brinco selecionado", sessaoDetalheEventData);
 
+  }
+
+  navigateToRoute(tipoGrafico: string) {
+    this.suinoDtService.grafico = tipoGrafico;
+    this.router.navigate(['GraticosDetalhes']);
   }
 }

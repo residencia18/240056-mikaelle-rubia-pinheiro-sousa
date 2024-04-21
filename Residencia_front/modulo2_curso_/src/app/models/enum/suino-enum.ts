@@ -41,3 +41,8 @@ export interface controleSuino{
   atividade: string,
   status: string
 }
+
+export interface graficoSuino{
+  cont: Number,
+  status: string
+}

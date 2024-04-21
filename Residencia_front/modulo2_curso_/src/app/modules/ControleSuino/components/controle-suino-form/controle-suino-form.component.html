@@ -20,7 +20,21 @@
             (click)="handleBrincoId('Controle do Animal de brinco: ', brincoSelected)"
           ></p-button>
         </div>
+
       </div>
+      <div>
+        <p-button icon="pi pi-file" label="Gráfico de Atividade" (click)="navigateToRoute('Atividade')"
+        styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"
+        class="mr-2">
+        </p-button>
+
+        <p-button icon="pi pi-file" label="Gráfico de Pesagem" (click)="navigateToRoute('Pesagem')"
+        styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"
+        class="mr-2">
+        </p-button>
+
+      </div>
+
 </p-card>
 </div>
 </div>

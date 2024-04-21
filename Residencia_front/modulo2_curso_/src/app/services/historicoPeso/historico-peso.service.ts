@@ -32,9 +32,26 @@ export class HistoricoPesoService {
             return postArray;
         })
     );
+
 }
 
+getAll(): Observable<PesoSuino[]> {
+  const JWT_TOKEN = this.cookieService.get('USER_INFO');
+  return this.http.get<PesoSuino[]>(this.API_URL+ 'pesos.json', {
+      headers: { 'Authorization': `Bearer ${JWT_TOKEN}` }
+  }).pipe(
+      map((responseData) => {
+          const postArray: PesoSuino[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)){
+              postArray.push({ ...(responseData as any)[key], id: key });
+          }
+          }
+          return postArray;
+      })
+  );
 
+}
   deletePeso(PesoId: string):Observable<any>{
     return this.http.delete(this.API_URL+`pesos/${PesoId}.json`);
   }

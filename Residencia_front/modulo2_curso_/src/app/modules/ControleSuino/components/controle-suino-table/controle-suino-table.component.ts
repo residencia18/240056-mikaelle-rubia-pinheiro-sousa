@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
 import { Suino } from '../../../../models/interfaces/Suino/Suino';
 import { PesoSuino } from '../../../../models/interfaces/Peso/PesoSuino';
-import { EventActon, controleSuino } from '../../../../models/enum/suino-enum';
+import { controleSuino } from '../../../../models/enum/suino-enum';
 import { SuinosService } from '../../../../services/suino/suinos.service';
 import { MessageService } from 'primeng/api';
 import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
@@ -25,7 +25,7 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
   pesoSuinoList: PesoSuino[]= [];
   sessaoList: Sessao[]= [];
   public id_suino:string= ''
-  brincoContrelo: Number = 0;
+  brincoControle: Number = 0;
 
 
   public controleSuino: controleSuino[] =[]
@@ -34,7 +34,6 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
   constructor(private suinosService: SuinosService,
     public ref: DynamicDialogConfig,
     private messageService: MessageService,
-    private suinosDtService :SuinoDataTransferService,
     private router: Router,
     private sessaoService: SessaoService,
     private pesoSuinoService: HistoricoPesoService
@@ -42,7 +41,7 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.brincoContrelo = Number(this.ref.data.event.id)
+    this.brincoControle = Number(this.ref.data.event.id)
 
     this.getAPISuinoDtas()
     this.getAPISessaoDtas()
@@ -57,7 +56,7 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
         if(response.length > 0){
           console.log("Action",response);
           for(let sessao of response){
-            if(sessao.animais.includes(this.brincoContrelo.toString())){
+            if(sessao.animais.includes(this.brincoControle.toString())){
               let controleSuino: controleSuino = {
                 atividade: sessao.atividade,
                 data: sessao.data_atividade,
@@ -88,7 +87,7 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
       next:(response)=>{
         if(response.length > 0){
           for(let suino of response){
-            if(suino.brinco === this.brincoContrelo){
+            if(suino.brinco === this.brincoControle){
               this.id_suino = suino.id
             }
           }
@@ -139,7 +138,6 @@ export class ControleSuinoTableComponent implements OnInit, OnDestroy{
     })
 
   }
-
 
   ngOnDestroy(): void{
     this.destroy$.next();

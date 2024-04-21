@@ -15,6 +15,7 @@ export class SuinoDataTransferService {
   public pesoSuinoDatas: PesoSuino[] =[]
   public id_suino: string= ""
   public listBrinco: Number[] =[]
+  public grafico: string= ""
 
   constructor() { }
 

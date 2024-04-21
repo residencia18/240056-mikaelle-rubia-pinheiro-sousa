@@ -68,6 +68,14 @@ const routes: Routes = [
       (m)=>m.ControleSuinoModule
     ),
     canActivate:[AuthGuardsService]
+  },
+    {
+    path:'GraticosDetalhes',
+    loadChildren:()=>
+    import('./modules/GraficosDetalhesAnimais/graficos-detalhes-animais.module').then(
+      (m)=>m.GraficosDetalhesAnimaisModule
+    ),
+    canActivate:[AuthGuardsService]
   }
 
 ];

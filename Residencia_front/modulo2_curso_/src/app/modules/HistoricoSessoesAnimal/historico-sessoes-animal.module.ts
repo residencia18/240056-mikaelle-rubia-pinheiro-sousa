@@ -13,7 +13,7 @@ import { HistoricoSessoesAnimalComponent } from './pages/historico-sessoes-anima
 import { HistorioSessaoAnimalTableComponent } from './components/historio-sessao-animal-table/historio-sessao-animal-table.component';
 import { DialogService} from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -23,6 +23,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
