@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { SessaoDataTransferService } from '../../../../shared/service/sessao/sessao-data-transfer.service';
 import { SessaoFormComponent } from '../../components/sessao-form/sessao-form.component';
 import { EventActon } from '../../../../models/enum/suino-enum';
-import { SuinoHomeComponent } from '../../../suinos/pages/suino-home/suino-home.component';
 
 @Component({
   selector: 'app-sessao-home',
@@ -26,7 +25,6 @@ export class SessaoHomeComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private router: Router,
     private sessaoDataTransferService: SessaoDataTransferService,
-    private confirmationService: ConfirmationService,
     private dialogService: DialogService,
     ){}
 
@@ -35,6 +33,7 @@ export class SessaoHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getServiceSessaoData()
     this.sessaoDataTransferService.setListabrinco()
+    console.log("aqui",this.sessaoDataTransferService.listBrinco)
 
   }
   getServiceSessaoData() {
@@ -53,6 +52,7 @@ export class SessaoHomeComponent implements OnInit, OnDestroy {
       next:(response)=>{
         if(response.length > 0){
           this.sessaoList = response;
+          this.sessaoDataTransferService.sessaoHistorico = response
         }
       }, error:(err)=>{
         console.log(err);
@@ -94,19 +94,27 @@ export class SessaoHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleDeleteSessao(event: any) {
-    if(event){
+  handleDeleteSessao(event: { id: string, action: string }) {
+    if (event) {
+      this.deleteSessao(event.id);
 
-      this.confirmationService.confirm({
-        message: `Confirma a exclusão de Sessao`,
-        header: 'Confirmação de exclusão',
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'Sim',
-        rejectLabel: 'Não',
-        accept:()=> this.deleteSessao(event?.id),
-      })
+      // this.confirmationService_sessao.confirm({
+
+      //   message: `Confirma a exclusão de Sessao: ${event?.action}?`,
+      //   header: 'Confirmação de exclusão',
+      //   icon: 'pi pi-exclamation-triangle',
+      //   acceptLabel: 'Sim',
+      //   rejectLabel: 'Não',
+      //   accept: () => {
+      //     console.log('Exclusão confirmada');
+      //     this.deleteSessao(event.id);
+      //   },
+
+      // });
+
     }
   }
+
   deleteSessao(id: string) {
     if(id){
       this.sessaoService.deleteSessao(id)

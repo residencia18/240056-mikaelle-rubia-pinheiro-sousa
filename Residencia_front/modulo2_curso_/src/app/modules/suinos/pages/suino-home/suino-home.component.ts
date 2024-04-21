@@ -2,12 +2,13 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SuinoDataTransferService } from './../../../../shared/service/suinos/suino-data-transfer.service';
 import { SuinosService } from './../../../../services/suino/suinos.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { Suino } from '../../../../models/interfaces/Suino/Suino';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SuinoFormComponent } from '../../components/suino-form/suino-form.component';
 import {EventActionPeso_, EventActon} from '../../../../models/enum/suino-enum'
+import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
 @Component({
   selector: 'app-suino-home',
   templateUrl: './suino-home.component.html',
@@ -17,7 +18,7 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$:Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   suinosList: Suino [] = []
-
+  sessaoList: Sessao [] =[];
 
   constructor(private suinosService: SuinosService,
     private messageService: MessageService,
@@ -25,10 +26,12 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
+
     ){}
 
   ngOnInit(): void {
       this.getServiceSuinosDt();
+
   }
   getServiceSuinosDt() {
     const suinosLoaded =  this.suinosDtService.getSuinosDatas();
@@ -97,6 +100,7 @@ export class SuinoHomeComponent implements OnInit, OnDestroy {
         rejectLabel: 'Não',
         accept:()=> this.deleteSuino(event?.id),
       })
+
     }
   }
   deleteSuino(id: string) {

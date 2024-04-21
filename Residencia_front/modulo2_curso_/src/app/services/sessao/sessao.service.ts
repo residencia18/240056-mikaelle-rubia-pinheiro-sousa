@@ -29,12 +29,13 @@ export class SessaoService {
     );
   }
 
+
   deleteSessao(idSessao: string):Observable<any>{
     return this.http.delete(this.API_URL+`sessao/${idSessao}.json`);
   }
 
   addSessao(SessaoData:{
-            data: string
+            data_atividade: string
             atividade: string
             animais: string []
             descricao: string}):Observable<any> {
@@ -42,11 +43,11 @@ export class SessaoService {
   }
 
   editSessao(SessaoData:{
-            data: string
+            data_atividade: string
             atividade: string
             animais: string []
-            descricao: string}):Observable<any> {
-  return this.http.put(this.API_URL+ 'sessao.json', SessaoData);
+            descricao: string}, idSessao: string):Observable<any> {
+  return this.http.put(this.API_URL+`sessao/${idSessao}.json`, SessaoData);
   }
 
 

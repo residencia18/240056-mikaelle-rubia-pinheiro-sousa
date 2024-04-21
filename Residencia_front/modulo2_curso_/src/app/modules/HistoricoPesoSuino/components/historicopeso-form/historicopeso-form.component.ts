@@ -1,7 +1,7 @@
 import { PesoSuino } from './../../../../models/interfaces/Peso/PesoSuino';
 import { Suino } from './../../../../models/interfaces/Suino/Suino';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventActionPeso_, HistoricoEvent } from '../../../../models/enum/suino-enum';
 
 
@@ -32,14 +32,14 @@ export class HistoricopesoFormComponent implements OnInit, OnDestroy{
   }
 
   public addPesoForm = this.formBuilder.group({
-    dataPesagem: ['', Validators.required],
-    pesoKg: ['', Validators.required],
+    dataPesagem: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    pesoKg: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
 
   public editPesoForm = this.formBuilder.group({
-    dataPesagem: ['', Validators.required],
-    pesoKg: ['', Validators.required],
+    dataPesagem: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    pesoKg: ['', { validators: [Validators.required], updateOn: 'blur' }],
   })
 
   public addPesoEvent = HistoricoEvent.ADD_PESO_EVENT;
@@ -52,6 +52,24 @@ export class HistoricopesoFormComponent implements OnInit, OnDestroy{
     public ref: DynamicDialogConfig,
     private suinosDtService :SuinoDataTransferService){}
 
+    verificaDataPeso(formulario: FormGroup) {
+      let dataValida = true;
+
+      const dataAtividade = new Date(formulario.get('dataPesagem')?.value);
+
+      if (isNaN(dataAtividade.getTime())) {
+        return false;
+      }
+      const dataAtual = new Date();
+      if (dataAtividade > dataAtual) {
+        dataValida = false;
+      }
+      return dataValida;
+    }
+
+    formataData(data: String): string{
+      return data.substring(8)+ "/" + data.substring(5,7)+ "/" + data.substring(0,4)
+    }
 
   ngOnInit(): void {
     this.PesoSuinoAction = this.ref.data;
@@ -97,10 +115,17 @@ export class HistoricopesoFormComponent implements OnInit, OnDestroy{
             detail: 'O Suino já tem pesagem para esse data',
             life: 3000
         });
-        } else {
+        }if(!this.verificaDataPeso(this.addPesoForm)){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Verifica os campos de data',
+            life: 3000
+        });
+       } else {
           const dataPesagemValida = dataPesagem || '';
           const pesoSuinoData ={
-            dataPesagem: dataPesagemValida,
+            dataPesagem: this.formataData(dataPesagemValida),
             pesoKg: Number(this.addPesoForm.value?.pesoKg),
             id_suino:this.suinosDtService.id_suino
           }
@@ -144,9 +169,17 @@ export class HistoricopesoFormComponent implements OnInit, OnDestroy{
           detail: 'O Suino já tem pesagem para esse data.',
           life: 3000
       })
-    }else{
+    }if(!this.verificaDataPeso(this.editPesoForm)){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Verifica os campos de data',
+        life: 3000
+    });
+   } else{
+      const dataPesagemValida = this.editPesoForm.value.dataPesagem || '';
       const requesEditPeso ={
-          dataPesagem: this.editPesoForm.value.dataPesagem ?? '',
+          dataPesagem: this.formataData(dataPesagemValida),
           pesoKg: Number(this.editPesoForm.value.pesoKg),
           id_suino:this.ref.data?.event?.peso?.id_suino
 

@@ -19,7 +19,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from '../../shared/shared.module';
 import { ConfirmationService } from 'primeng/api';
 import { DETALHES_SESSAO_ROUTES } from './detalhes-sessao.routing';
-import { DetalhesSessaoFormComponent } from './components/detalhes-sessao-form/detalhes-sessao-form.component';
 import { DetalhesSessaoTableComponent } from './components/detalhes-sessao-table/detalhes-sessao-table.component';
 
 

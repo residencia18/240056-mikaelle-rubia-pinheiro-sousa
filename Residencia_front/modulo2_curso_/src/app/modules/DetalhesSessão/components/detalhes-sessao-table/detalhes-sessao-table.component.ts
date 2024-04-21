@@ -23,6 +23,7 @@ export class DetalhesSessaoTableComponent {
   ngOnInit(): void {
     this.brinco_animais = this.sessaoDtService.listBrinco;
 
+
   }
 
 

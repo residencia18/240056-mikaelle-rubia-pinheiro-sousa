@@ -24,7 +24,7 @@ export class SuinoTableComponent {
     if(action && action !== ''){
       const suinoEventData= id && id !== '' ? {action, id} : {action}
       console.log("suinoEventData", suinoEventData)
-      // EMITIR O VALOR DO EVENTO
+
       this.suinosEvent.emit(suinoEventData)
     }
   }

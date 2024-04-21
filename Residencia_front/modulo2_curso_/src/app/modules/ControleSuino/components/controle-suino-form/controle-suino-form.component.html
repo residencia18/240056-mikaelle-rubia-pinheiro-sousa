@@ -1,0 +1,26 @@
+<div class="grid">
+  <div class="col-12">
+    <p-card
+    header="Controle do Animal"
+    styleClass="shadow-3 m-5 text-indigo-800"
+    >
+      <div class="card flex flex-column md:flex-column gap-3">
+        <label>Selecione o brinco</label>
+        <p-dropdown
+          styleClass="w-full"
+          [options]="brinco_animais"
+          [(ngModel)]="brincoSelected"
+          placeholder="Brinco do animal"
+        ></p-dropdown>
+        <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
+          <p-button
+            styleClass="p-button-info"
+            type="submit"
+            label="Enviar Brinco"
+            (click)="handleBrincoId('Controle do Animal de brinco: ', brincoSelected)"
+          ></p-button>
+        </div>
+      </div>
+</p-card>
+</div>
+</div>

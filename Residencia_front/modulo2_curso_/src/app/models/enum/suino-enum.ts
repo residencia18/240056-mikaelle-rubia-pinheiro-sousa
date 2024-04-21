@@ -35,3 +35,9 @@ export interface EventActionPeso_ {
   suino_id: string;
 
 }
+
+export interface controleSuino{
+  data: string,
+  atividade: string,
+  status: string
+}

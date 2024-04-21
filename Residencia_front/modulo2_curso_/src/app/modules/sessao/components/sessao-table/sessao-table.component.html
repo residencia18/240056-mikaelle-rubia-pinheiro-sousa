@@ -18,7 +18,13 @@
     [showCurrentPageReport]="true"
     data="id"
     currentPageReportTemplate="Mostrando {first} de {last} de sessões"
+
     >
+    <p-button icon="pi pi-file" label="Historico das sessões" routerLink="/historicoSessao"
+    styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"
+    class="mr-2">
+    </p-button>
+
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="data_atividade">
@@ -78,7 +84,7 @@
 
     <ng-template pTemplate="body" let-sessao_>
       <tr >
-        <td>{{ sessao_.data }}</td>
+        <td>{{ sessao_.data_atividade }}</td>
         <td>{{ sessao_.descricao }}</td>
         <td>
           <div class="flex justify-content-center grap-3 align-content-center align-items-center">
@@ -119,8 +125,14 @@
 
     </ng-template>
     </p-table>
+
+    <div class="p-toolbar-group-center">
+      <p-button icon="pi pi-file" label="Historico das sessões" routerLink="/historicoSessao"
+      styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"
+      class="mr-2">
+      </p-button>
+
+    </div>
   </p-card>
-
   </div>
-
 </div>

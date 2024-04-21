@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { SessaoService } from '../../../../services/sessao/sessao.service';
 import { SessaoDataTransferService } from '../../../../shared/service/sessao/sessao-data-transfer.service';
@@ -14,13 +13,12 @@ import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
 })
 export class DetalhesSessaoHomeComponent implements OnInit, OnDestroy{
   private readonly destroy$:Subject<void> = new Subject();
-  sessaoList: Sessao[] =[];
+
   DetalheSessao:Sessao[] =[] ;
   DetalheSessao_: number[] = [];
 
   constructor(private messageService: MessageService,
     private sessaoService: SessaoService,
-    private dialogService: DialogService,
     private sessaoDataTransferService: SessaoDataTransferService,
     private router: Router){}
 

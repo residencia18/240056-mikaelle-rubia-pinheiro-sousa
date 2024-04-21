@@ -45,6 +45,7 @@ export class SessaoTableComponent {
   handleDeleteSessao(id: string, descricao: string ):void {
     if(id !== '' && descricao !== '' ){
       this.deleteSessao.emit({id, descricao});
-    }  }
+    }
+  }
 
 }

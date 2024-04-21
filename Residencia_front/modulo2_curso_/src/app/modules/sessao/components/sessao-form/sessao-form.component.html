@@ -5,6 +5,7 @@
   <form [formGroup]="addSessaoForm" (ngSubmit)="handleSubmitAddSessao()">
 
     <div class="card flex flex-column md:flex-column gap-3">
+      <label>Data da Atividade</label>
       <input pInputText type ="date" placeholder="Data da Atividade" formControlName="data_atividade">
 
       <p-dropdown
@@ -47,26 +48,42 @@
  <form [formGroup]="editSessaoForm" (ngSubmit)="handleEditSessao()">
 
   <div class="card flex flex-column md:flex-column gap-3">
+    <label>Data da Atividade</label>
     <input pInputText type ="date" placeholder="Data da Atividade" formControlName="data_atividade">
 
     <p-dropdown
     styleClass="w-full"
     [options]="atividades_sessao"
     [(ngModel)]="selectedAtividade"
-    placeholder="Atividade do animal"
+    placeholder="{{ atividade}}"
     formControlName="atividade"
     ></p-dropdown>
+
+
+    <p-dropdown
+    styleClass="w-full"
+    [options]="brinco_animais"
+    [(ngModel)]="selectedbrincoAnimais"
+    placeholder="Brinco do animal"
+    formControlName="animais"
+    ></p-dropdown>
+    <p-button
+    [disabled]="selectedbrincoAnimais == 0"
+    (click)="addbrinco(selectedbrincoAnimais)"
+    label="Adicionar animal"
+    ></p-button>
+
     <input pInputText type ="text" placeholder="Descricao" formControlName="descricao">
 
     <div class="flex flex-row justify-content-center align-content-center align-items-center m-1">
       <p-button
-      [disabled]="!addSessaoForm.valid"
+      [disabled]="!editSessaoForm.valid"
       type="submit"
       label="Concluir"
       ></p-button>
     </div>
 
-  </div>
- </form>
+    </div>
+  </form>
 </div>
 

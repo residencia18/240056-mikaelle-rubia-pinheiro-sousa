@@ -1,6 +1,7 @@
 import { PesoSuino } from '../Peso/PesoSuino';
 
 export interface Suino {
+  id: string
   brinco: number;
   brincoPai: number;
   brincoMae: number;

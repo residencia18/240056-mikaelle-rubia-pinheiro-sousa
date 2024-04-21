@@ -52,6 +52,22 @@ const routes: Routes = [
       (m)=>m.DetalhesSessaoModule
     ),
     canActivate:[AuthGuardsService]
+  },
+  {
+    path:'historicoSessao',
+    loadChildren:()=>
+    import('./modules/HistoricoSessoesAnimal/historico-sessoes-animal.module').then(
+      (m)=>m.HistoricoSessoesAnimalModule
+    ),
+    canActivate:[AuthGuardsService]
+  },
+  {
+    path:'controleoAnimal',
+    loadChildren:()=>
+    import('./modules/ControleSuino/controle-suino.module').then(
+      (m)=>m.ControleSuinoModule
+    ),
+    canActivate:[AuthGuardsService]
   }
 
 ];

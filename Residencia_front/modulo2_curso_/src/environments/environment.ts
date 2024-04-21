@@ -19,3 +19,5 @@ export const environment ={
 export const atividade_suinos ={
   vacinas: ['Vacina Raiva', 'Rinite Atrófica', 'Vacina Circovirose', 'Vacina Colibacilose']
 }
+
+

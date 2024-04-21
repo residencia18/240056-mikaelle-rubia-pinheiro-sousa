@@ -46,6 +46,7 @@ export class HistoricopesoHomeComponent implements OnInit, OnDestroy {
     }else{
       this.getAPIPesoSuinoDtas();
 
+
     }
   }
   getAPIPesoSuinoDtas() {

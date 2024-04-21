@@ -3,8 +3,10 @@ import { SuinosService } from '../../../../services/suino/suinos.service';
 import { MessageService } from 'primeng/api';
 import { Suino } from '../../../../models/interfaces/Suino/Suino';
 import { SuinoDataTransferService } from '../../../../shared/service/suinos/suino-data-transfer.service';
-import { Subject } from 'rxjs';
+import { Subject} from 'rxjs';
 import { ChartData, ChartOptions } from 'chart.js';
+import { Sessao } from '../../../../models/interfaces/Sessao/sessao';
+
 
 @Component({
   selector: 'app-dashboard-home',
@@ -17,12 +19,17 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public suinosChatsDts!:ChartData;
   public suinosChatsOptions! : ChartOptions;
 
-  constructor(private suinoService: SuinosService, private messageService: MessageService, private suinoDtService: SuinoDataTransferService){}
+
+  constructor(private suinoService: SuinosService,
+     private messageService: MessageService,
+     private suinoDtService: SuinoDataTransferService){}
 
   ngOnInit(): void {
       this.getSuinosDatas();
 
   }
+
+
   getSuinosDatas():void {
 
     this.suinoService.getAllSuinos()
@@ -31,6 +38,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         this.suinosList = response;
         console.log("suinos:" , this.suinosList)
         this.suinoDtService.setSuinosDatas(this.suinosList);
+
         if(this.suinosList.length > 0){
           this.setSuinosChartConfig();
         }
@@ -46,6 +54,8 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     }
     })
   }
+
+
   setSuinosChartConfig(){
     if(this.suinosList.length > 0){
 
@@ -56,6 +66,9 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
 
       const quantidadeTotal = this.suinosList.length;
+      const quantidadeSexoF = this.suinosList?.filter(suino=> suino.sexo === 'F').length;
+      const quantidadeSexoM = this.suinosList?.filter(suino=> suino.sexo === 'M').length;
+
 
       this.suinosChatsDts ={
         labels:  ['Total de Animais'],
@@ -66,6 +79,20 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
             borderColor: documentStyle.getPropertyValue('--indigo-400'),
             hoverBackgroundColor:documentStyle.getPropertyValue('--indigo-500' ),
             data: [quantidadeTotal],
+          },
+          {
+            label:'Quantidade Suino sexo F',
+            backgroundColor:documentStyle.getPropertyValue('--indigo-400'),
+            borderColor: documentStyle.getPropertyValue('--indigo-400'),
+            hoverBackgroundColor:documentStyle.getPropertyValue('--indigo-500' ),
+            data: [quantidadeSexoF],
+          },
+          {
+            label:'Quantidade Suino sexo M',
+            backgroundColor:documentStyle.getPropertyValue('--indigo-400'),
+            borderColor: documentStyle.getPropertyValue('--indigo-400'),
+            hoverBackgroundColor:documentStyle.getPropertyValue('--indigo-500' ),
+            data: [quantidadeSexoM],
           },
         ],
       };

@@ -9,6 +9,7 @@ import { SuinosService } from '../../../services/suino/suinos.service';
 export class SessaoDataTransferService {
   public sessaoDataEmitter$ = new BehaviorSubject<Sessao[] | null>(null);
   public sessaoDatas: Sessao [] =[];
+  public sessaoHistorico: Sessao [] =[];
   public listBrinco: Number[] =[]
   public id_sessao: string= ""
   constructor(private suinosService: SuinosService) { }
@@ -46,10 +47,9 @@ export class SessaoDataTransferService {
     )
     .subscribe({
       next: (response) => {
-        console.log("id sessao data---", response);
+
         if (response) {
           this.sessaoDatas = response;
-          console.log("id sessao data---2", this.sessaoDatas);
         }
       },
       error: (error) => {

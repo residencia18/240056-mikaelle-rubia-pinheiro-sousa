@@ -1,5 +1,5 @@
 import { PesoSuino } from './../../../../models/interfaces/Peso/PesoSuino';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { SuinosService } from '../../../../services/suino/suinos.service';
@@ -35,32 +35,52 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
 
   public addSuinoForm = this.formBuilder.group({
-    brinco: ['', Validators.required],
-    brincoPai: ['', Validators.required],
-    brincoMae: ['', Validators.required],
-    dataNascimento: ['', Validators.required],
-    dataSaida: ['', Validators.required],
-    status: ['', Validators.required],
-    sexo: ['', Validators.required],
+    brinco: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    brincoPai: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    brincoMae: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    dataNascimento: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    dataSaida: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    status: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    sexo: ['', { validators: [Validators.required], updateOn: 'blur' }],
 
 
   })
 
   public editSuinoForm = this.formBuilder.group({
-    brinco: ['', Validators.required],
-    brincoPai: ['', Validators.required],
-    brincoMae: ['', Validators.required],
-    dataNascimento: ['', Validators.required],
-    dataSaida: ['', Validators.required],
-    status: ['', Validators.required],
-    sexo: ['', Validators.required],
+    brinco: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    brincoPai: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    brincoMae: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    dataNascimento: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    dataSaida: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    status: ['', { validators: [Validators.required], updateOn: 'blur' }],
+    sexo: ['', { validators: [Validators.required], updateOn: 'blur' }],
 
   })
+
+  verificaDataSuino(formulario: FormGroup) {
+    let dataValida = true;
+
+    const dataSaida = new Date(formulario.get('dataSaida')?.value);
+    const dataNascimento = new Date(formulario.get('dataNascimento')?.value);
+
+    if (isNaN(dataSaida.getTime()) || isNaN(dataNascimento.getTime())) {
+      return false;
+    }
+      if (dataSaida < dataNascimento) {
+      dataValida = false;
+    }
+    const dataAtual = new Date();
+    if (dataNascimento > dataAtual) {
+      dataValida = false;
+    }
+    return dataValida;
+  }
 
   public addSuinoEvent = SuinoEvent.ADD_SUINO_EVENT;
   public editSuinoEvent = SuinoEvent.EDIT_SUINO_EVENT;
   public historicSuinoEvent = SuinoEvent.HISTORIC_SUINO_EVENT;
   public brinco_id_get: number =0
+  public  data: string =''
 
   constructor(private suinosService: SuinosService,
     private messageService: MessageService,
@@ -71,6 +91,7 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.suinoAction = this.ref.data;
+
     if(this.suinoAction?.event?.action == this.editSuinoEvent){
       this.getSuinoSelectedDatas(this.suinoAction?.event?.id);
 
@@ -100,14 +121,16 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
       })
   }
 
+  formataData(data: String): string{
+    return data.substring(8)+ "/" + data.substring(5,7)+ "/" + data.substring(0,4)
+  }
   handleSubmitAddSuino(): void {
     if(this.addSuinoForm?.value && this.addSuinoForm?.valid){
       const brincoNovo: number = Number(this.addSuinoForm.value?.brinco);
 
-
       const brincoExiste = this.suinosDatas.some(suino => suino.brinco === brincoNovo);
 
-      if (brincoExiste) {
+      if (brincoExiste ){
           // Se o brinco já existe, exiba uma mensagem de erro
           this.messageService.add({
               severity: 'error',
@@ -115,17 +138,27 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
               detail: 'O brinco já foi adicionado anteriormente.',
               life: 3000
           });
+      }if(!this.verificaDataSuino(this.addSuinoForm)){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Verifica os campos de data',
+            life: 3000
+        });
       } else {
-      const suinoData = {
-        brinco: Number(this.addSuinoForm.value?.brinco),
-        brincoPai: Number(this.addSuinoForm.value?.brincoPai) ,
-        brincoMae: Number(this.addSuinoForm.value?.brincoMae) ,
-        dataNascimento: this.addSuinoForm.value?.dataNascimento as string,
-        dataSaida: this.addSuinoForm.value?.dataSaida as string,
-        status: this.addSuinoForm.value?.status as string,
-        sexo: this.addSuinoForm.value?.sexo as string,
+        const data = this.addSuinoForm.value?.dataNascimento as string
+        const dataSaida = this.addSuinoForm.value?.dataSaida as string
 
-      };
+        const suinoData = {
+          brinco: Number(this.addSuinoForm.value?.brinco),
+          brincoPai: Number(this.addSuinoForm.value?.brincoPai) ,
+          brincoMae: Number(this.addSuinoForm.value?.brincoMae) ,
+          dataNascimento: this.formataData(data),
+          dataSaida: this.formataData(dataSaida),
+          status: this.addSuinoForm.value?.status as string,
+          sexo: this.addSuinoForm.value?.sexo as string,
+
+        };
       console.log("Add suino", suinoData)
       this.suinosService.addSuino(suinoData)
       .pipe()
@@ -156,53 +189,56 @@ export class SuinoFormComponent implements OnInit, OnDestroy {
 
     handleEditSuino(): void {
       if(this.editSuinoForm?.value && this.editSuinoForm?.valid && this.suinoAction.event.id){
-        const brincoNovo: number = Number(this.editSuinoForm.value?.brinco);
 
-        if (this.brinco_id_get === brincoNovo) {
-            // Se o brinco já existe, exiba uma mensagem de erro
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Erro',
-                detail: 'O brinco já foi adicionado anteriormente.',
-                life: 3000
-            });
-        } else {
+        if(!this.verificaDataSuino(this.editSuinoForm)){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Verifica os campos de data',
+            life: 3000
+        });
+      }else{
 
-          const requesEditSuino ={
-            brinco: Number(this.editSuinoForm?.value.brinco),
-            brincoPai: Number(this.editSuinoForm?.value.brincoPai),
-            brincoMae: Number(this.editSuinoForm?.value.brincoMae),
-            dataNascimento: this.editSuinoForm?.value.dataNascimento as string,
-            dataSaida: this.editSuinoForm?.value.dataSaida as string,
-            status: this.editSuinoForm?.value.status as string,
-            sexo: this.editSuinoForm?.value.sexo as string,
-            historicoPeso: this.historicoPesoGet
-          }
 
-          this.suinosService.editSuino(requesEditSuino, this.suinoAction.event.id)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe({
-            next:()=>{
-              this.messageService.add({
-                severity:'sucess',
-                summary:'Sucesso',
-                detail: 'Suino editado com sucesso',
-                life: 2500
-              })
-              this.editSuinoForm.reset();
-            },error:(err)=>{
-              console.log(err);
-              this.router.navigate(['/dashboard']);
-              this.messageService.add({
-                severity:'error',
-                summary:'Erro',
-                detail: 'Erro ao buscar animais',
-                life: 2500
-              })
-            }
-          });
+        const data = this.editSuinoForm?.value?.dataNascimento as string
+        const dataSaida = this.editSuinoForm?.value?.dataSaida as string
+
+        const requesEditSuino ={
+          brinco: Number(this.editSuinoForm?.value.brinco),
+          brincoPai: Number(this.editSuinoForm?.value.brincoPai),
+          brincoMae: Number(this.editSuinoForm?.value.brincoMae),
+          dataNascimento: this.formataData(data),
+          dataSaida: this.formataData(dataSaida),
+          status: this.editSuinoForm?.value.status as string,
+          sexo: this.editSuinoForm?.value.sexo as string,
+          historicoPeso: this.historicoPesoGet
         }
+
+        this.suinosService.editSuino(requesEditSuino, this.suinoAction.event.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next:()=>{
+            this.messageService.add({
+              severity:'sucess',
+              summary:'Sucesso',
+              detail: 'Suino editado com sucesso',
+              life: 2500
+            })
+            this.editSuinoForm.reset();
+          },error:(err)=>{
+            console.log(err);
+            this.router.navigate(['/dashboard']);
+            this.messageService.add({
+              severity:'error',
+              summary:'Erro',
+              detail: 'Erro ao buscar animais',
+              life: 2500
+            })
+          }
+        });
       }
+    }
+
     }
 
     getSuinoSelectedDatas(id_suino?: string): void{
