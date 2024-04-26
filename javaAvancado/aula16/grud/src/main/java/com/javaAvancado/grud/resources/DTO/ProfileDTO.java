@@ -1,8 +1,17 @@
 package com.javaAvancado.grud.resources.DTO;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.javaAvancado.grud.entities.Profile;
 
-public class ProfileDTO {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ProfileDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
     private String authority;

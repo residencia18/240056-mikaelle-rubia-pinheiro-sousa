@@ -2,6 +2,10 @@ package com.javaAvancado.grud.resources.form;
 
 import com.javaAvancado.grud.entities.User;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 public class UserForm {
 
 	private String firstName;

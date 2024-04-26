@@ -1,7 +1,11 @@
 package com.javaAvancado.grud.resources.form;
-
 import com.javaAvancado.grud.entities.Profile;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ProfileForm {
     private String authority;
 
@@ -16,7 +20,7 @@ public class ProfileForm {
 		this.authority = authority;
 	}
 
-	private Profile createProfile() {
+	public Profile createProfile() {
 		return new Profile(null, authority);
 	}
     
