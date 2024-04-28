@@ -1,55 +1,48 @@
 package com.javaAvancado.grud.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
+import java.time.Instant;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_profile")
-public class Profile implements Serializable {
-	
+@Table(name = "tb_role")
+public class Role implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    
-    private String authority;
-    
-    @ManyToMany(mappedBy ="profiles")
-    private Set<User> users =new HashSet<>(); 
+	private String authority;
+	
+	public Role() {
+	}
 
-
-	public Profile(Long id, String authority) {
+	public Role(Long id, String authority) {
 		super();
 		this.id = id;
 		this.authority = authority;
 	}
 
 
-	public Profile() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -59,12 +52,12 @@ public class Profile implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Profile other = (Profile) obj;
-		return Objects.equals(id, other.id);
+		Role other = (Role) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-
-
-
-	
-	
 }
