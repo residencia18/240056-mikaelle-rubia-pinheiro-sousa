@@ -37,6 +37,7 @@ public class AuthenticationResources {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
     	 LOGGER.info("Executando operação de login.{}", data.login() );
+    	 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         
@@ -47,6 +48,7 @@ public class AuthenticationResources {
     
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+    	LOGGER.info("Executando operação de Registrar User.{}", data.login() );
     	
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
