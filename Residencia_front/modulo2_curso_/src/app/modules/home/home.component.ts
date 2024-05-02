@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { SignupUserRequest } from '../../models/interfaces/User/SignupUserRequest';
@@ -13,7 +13,10 @@ import { Subject } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnDestroy{
+export class HomeComponent implements AfterViewInit,  OnDestroy{
+  @ViewChild('emailInput') public emailInputref!: ElementRef;
+  @ViewChild('passwordInput') public passwordInputref!: ElementRef;
+
   private readonly destroy$:Subject<void> = new Subject();
   email: string='';
   password: string='';
@@ -31,6 +34,11 @@ export class HomeComponent implements OnDestroy{
     password:['', Validators.required]
   });
   constructor(private formBuilder: FormBuilder,private userService: UserService,private cookService: CookieService,private messageService: MessageService,private router: Router){}
+
+
+  ngAfterViewInit(): void {
+
+  }
 
     loginWitnGoogle() {
         this.userService.signInWithGoogle().then((response:any)=>{
