@@ -1,3 +1,5 @@
+INSERT INTO tb_user  (login, password, role) VALUES ('mika', '123', 'ADMIN');
+
 INSERT INTO category (name) VALUES ('Livros');
 INSERT INTO category (name) VALUES ('Eletrônicos');
 INSERT INTO category (name) VALUES ('Computadores');

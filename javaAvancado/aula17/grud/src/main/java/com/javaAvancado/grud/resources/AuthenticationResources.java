@@ -36,7 +36,7 @@ public class AuthenticationResources {
 	
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-    	 LOGGER.info("Executando operação de login.{}", data.login() );
+    	 LOGGER.info("Executando operação de login. :{}", data.login() );
     	 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
