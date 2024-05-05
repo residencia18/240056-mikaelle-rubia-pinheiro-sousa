@@ -1,4 +1,4 @@
-package com.javaAvancado.grud.services;
+package com.provaJava.ProvaJava.service;
 
 import java.time.LocalDateTime;
 
@@ -8,13 +8,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.javaAvancado.grud.entities.Email;
-import com.javaAvancado.grud.enums.StatusEmail;
-import com.javaAvancado.grud.repository.EmailRepository;
+import com.provaJava.ProvaJava.domain.Email;
+import com.provaJava.ProvaJava.enums.StatusEmail;
+import com.provaJava.ProvaJava.repositories.EmailRepository;
 
 @Service
 public class EmailService {
-	
+
 	@Autowired
 	private EmailRepository emailRepository;
 	
@@ -41,6 +41,4 @@ public class EmailService {
 		
 	}
 	
-	
-
 }
