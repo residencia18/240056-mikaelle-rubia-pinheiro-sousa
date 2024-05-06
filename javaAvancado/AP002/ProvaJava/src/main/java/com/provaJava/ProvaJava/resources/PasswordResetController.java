@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.provaJava.ProvaJava.domain.User;
 import com.provaJava.ProvaJava.repositories.UserRepository;
+import com.provaJava.ProvaJava.resources.dto.EmailDTO;
 import com.provaJava.ProvaJava.resources.dto.LoginResponseDTO;
 import com.provaJava.ProvaJava.resources.dto.ResetPasswordDTO;
 import com.provaJava.ProvaJava.security.TokenService;
@@ -25,22 +26,26 @@ public class PasswordResetController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+
+    
+    
     
     @PostMapping("/redefinir-senha")
     public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordDTO data) {
     	User user = this.userRepository.findByEmail(data.email()).orElseThrow(()->new RuntimeException("User not found "));
-    	LOGGER.info("Executando operação de Resetar senha .{}{}{}", data.email(), data.password(), data.newPassword());
+    	LOGGER.info("Executando operação de Resetar senha .{}{}{}", data.email(), data.newPassword());
  
-    	if(this.passwordEncoder.matches(data.password(), user.getPassword())) {
-
-    		String token = this.tokenService.generateTokenReset(user.getPassword());
+    	try {
+    		String token = this.tokenService.generateTokenReset(data.newPassword());
     		user.setPassword(this.passwordEncoder.encode(data.newPassword()));
     		
     		this.userRepository.save(user);
-    		
-    		return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
-    	}
+
+    		return ResponseEntity.ok().build();
     	
-    	return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+       }
     }
+    
 }

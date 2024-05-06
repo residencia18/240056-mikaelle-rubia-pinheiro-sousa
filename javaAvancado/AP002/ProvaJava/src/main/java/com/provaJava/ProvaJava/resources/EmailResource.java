@@ -25,15 +25,15 @@ public class EmailResource {
 	private EmailService emailService;
 	
 	@PostMapping("/sending-email")
-	public ResponseEntity<Email> sendingEmail(@RequestBody @Valid EmailDTO emailDto, UriComponentsBuilder uriC){
+	public ResponseEntity<Email> sendingEmail(@RequestBody @Valid EmailDTO emailDto){
 		try {
 			
 			Email email = new Email();
 			BeanUtils.copyProperties(emailDto, email);
 			emailService.insert(email);
-			URI uri = uriC.path("/sending-email/{id}").buildAndExpand(email.getId()).toUri();
+
 			LOGGER.info("--------Enviando email-------");
-			return ResponseEntity.created(uri).body(emailService.insert(email));
+			return ResponseEntity.ok().build();
       } catch (Exception e) {
             return ResponseEntity.notFound().build();
        }
