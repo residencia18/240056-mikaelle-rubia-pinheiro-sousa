@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.provaJava.ProvaJava.domain.Email;
 import com.provaJava.ProvaJava.enums.StatusEmail;
 import com.provaJava.ProvaJava.repositories.EmailRepository;
+import com.provaJava.ProvaJava.tests.Factory;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -21,12 +22,12 @@ public class EmailRepositoryTests {
 
 
     private Long existingId;
-    private String OwnerRef;
+
     
 	@BeforeEach
 	void setUp() throws Exception{
 		existingId = 1L;
-		OwnerRef = "Owner Reference";
+
 	}
 
 	@Test
@@ -42,20 +43,10 @@ public class EmailRepositoryTests {
     @Test
     public void saveShouldPersistWithAutoincrementWhenIdIsNull() {
         // Given
-        Email email = new Email();
-        email.setSendDateEmail(LocalDateTime.now());
-        
-        email.setOwnerRef("Owner Reference");
-        email.setEmailFrom("from@example.com");
-        email.setEmailTo("to@example.com");
-        email.setSubject("Test Subject");
-        email.setText("Test Content");
-        email.setStatusEmail(StatusEmail.SENT);
-        email.setId(null);
-
+    	
+        Email email = Factory.createEmail();
         email = emailRepository.save(email);
 
-      
         Assertions.assertNotNull(email.getId());
         
     }

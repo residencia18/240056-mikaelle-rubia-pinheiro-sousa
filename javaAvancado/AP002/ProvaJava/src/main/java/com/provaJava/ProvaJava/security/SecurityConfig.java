@@ -42,6 +42,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/email/{id}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/email/{id}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/email").permitAll()
+                .requestMatchers("/swagger-ui/*", "/v3/api-docs/*", "/swagger-ui.html").permitAll()
+                .requestMatchers("/h2-console/*").permitAll()
+               
                 .anyRequest().authenticated()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

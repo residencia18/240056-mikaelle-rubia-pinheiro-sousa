@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 @Transactional
-public class EmailServicesTests {
+public class EmailServicesIT {
 	@Autowired
 	private EmailService service;
 	

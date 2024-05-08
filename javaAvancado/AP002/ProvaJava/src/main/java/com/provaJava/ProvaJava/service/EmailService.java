@@ -58,7 +58,7 @@ public class EmailService {
 	@Transactional(readOnly = true)
 	public EmailDTO findById(Long id) {
 		Optional<Email> obj =  emailRepository.findById(id);
-		Email entity = obj.orElseThrow(()->new RuntimeException("User not found "));
+		Email entity = obj.orElseThrow(()->new RuntimeException());
 		return new EmailDTO(entity.getOwnerRef(),entity.getEmailFrom(), entity.getEmailTo(), entity.getSubject(), entity.getText());
 	}
 
