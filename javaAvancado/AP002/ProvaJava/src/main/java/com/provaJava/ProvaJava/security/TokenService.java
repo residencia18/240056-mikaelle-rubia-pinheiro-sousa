@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -16,7 +17,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.provaJava.ProvaJava.domain.User;
 
 
-@Service
+@Component
 public class TokenService {
 	
 	@Value("${api.security.token.secret}")

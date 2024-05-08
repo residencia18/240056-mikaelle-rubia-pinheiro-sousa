@@ -22,7 +22,7 @@ import com.javaAvancado.grud.resources.DTO.CategoryDTO;
 import com.javaAvancado.grud.resources.DTO.ProductDTO;
 import com.javaAvancado.grud.resources.form.ProductForm;
 
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException; 
 
 @Service
 public class ProductService {

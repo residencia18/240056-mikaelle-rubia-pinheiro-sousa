@@ -1,17 +1,18 @@
 package com.provaJava.ProvaJava.resources.dto;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.provaJava.ProvaJava.repositories.UserRepository;
-import com.provaJava.ProvaJava.resources.EmailResource;
-import com.provaJava.ProvaJava.security.TokenService;
+import java.io.Serializable;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
-@Data
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 
 public class EmailDTO {
 	
@@ -32,6 +33,9 @@ public class EmailDTO {
 	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
     private String text;
 
+	public EmailDTO() {
+		
+	}
 	public EmailDTO(String ownerRef, String emailFrom, String emailTo, String subject, String text) {
 		super();
 		this.ownerRef = ownerRef;
@@ -41,4 +45,5 @@ public class EmailDTO {
 		this.text = text;
 	}
 	
+
 }
