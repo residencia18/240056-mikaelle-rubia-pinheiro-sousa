@@ -24,14 +24,14 @@ public class UserService {
 	}
 	
 	@Transactional(readOnly = true)
-	public UserDTO findById(String id) {
+	public UserDTO findById(Long id) {
 		Optional<User>obj =  userRepository.findById(id);
 		User entity = obj.orElseThrow(()->new RuntimeException());
 		return new UserDTO(entity);
 	}
 
 	@Transactional
-	public void delete(String id) {
+	public void delete(Long id) {
 	    User obj =  userRepository.findById(id).orElseThrow(() -> new RuntimeException());
 	    userRepository.deleteById(id);
 	}
