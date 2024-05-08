@@ -16,21 +16,21 @@ import lombok.Setter;
 
 public class EmailDTO {
 	
-	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
+	@NotBlank(message = "Valor do campo ownerRef não pode ser null ou vazio")
 	private String ownerRef;
 	
 	@Email
-	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
+	@NotBlank(message = "Valor do campo emailFrom não pode ser null ou vazio")
     private String emailFrom;
 	
 	@Email
-	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
+	@NotBlank(message = "Valor do campo emailTo não pode ser null ou vazio")
     private String emailTo;
 	
-	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
+	@NotBlank(message = "Valor do campo subject não pode ser null ou vazio")
     private String subject;
 	
-	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
+	@NotBlank(message = "Valor do campo text não pode ser null ou vazio")
     private String text;
 
 	public EmailDTO() {

@@ -8,6 +8,7 @@ import com.provaJava.ProvaJava.domain.Email;
 import com.provaJava.ProvaJava.domain.User;
 import com.provaJava.ProvaJava.enums.StatusEmail;
 import com.provaJava.ProvaJava.resources.dto.EmailDTO;
+import com.provaJava.ProvaJava.resources.dto.UserDTO;
 import com.provaJava.ProvaJava.security.TokenService;
 
 import java.time.LocalDateTime;
@@ -36,4 +37,13 @@ public class Factory {
 	    }
 	}
 	
+	public static User createUser() {
+		User user = new User(1L, "Admin Teste", "admin@gmail.com", "123");
+		return user;
+	}
+	
+	public static UserDTO createUserDTO() {
+		User user = createUser();
+		return new UserDTO(user);
+	}
 }
