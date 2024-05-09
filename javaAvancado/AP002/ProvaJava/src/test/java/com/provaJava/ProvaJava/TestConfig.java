@@ -7,9 +7,6 @@ import com.provaJava.ProvaJava.repositories.UserRepository;
 
 public class TestConfig {
 
-    @Bean
-    public UserRepository userRepository() {
-        return Mockito.mock(UserRepository.class);
-    }
+
     
 }

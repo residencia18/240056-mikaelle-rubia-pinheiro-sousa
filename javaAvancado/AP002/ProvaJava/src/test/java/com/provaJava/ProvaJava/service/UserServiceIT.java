@@ -1,50 +1,54 @@
 package com.provaJava.ProvaJava.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.provaJava.ProvaJava.exceptions.ResourceNotFoundException;
-import com.provaJava.ProvaJava.repositories.EmailRepository;
+import com.provaJava.ProvaJava.repositories.UserRepository;
 import com.provaJava.ProvaJava.resources.dto.EmailDTO;
-import org.springframework.data.domain.Sort;
+import com.provaJava.ProvaJava.resources.dto.UserDTO;
 
 @SpringBootTest
 @Transactional
-public class EmailServicesIT {
-	@Autowired
-	private EmailService service;
+public class UserServiceIT {
 	
-
+	@Autowired
+	private UserService service;
+	
     @Autowired
-    private EmailRepository emailRepository;
+    private UserRepository userRepository;
     
 	private Long existingId;
 	private Long nonExistingId;
-	private String emailFrom;
-	private Long countTotalEmail;
+	private String email;
+	private Long countTotalUsers;
 	
-	 
+	
 	@BeforeEach
 	void setUp() throws Exception {
 	existingId = 1L;
 	nonExistingId = 1000L;
-	countTotalEmail = 3L;
-	emailFrom = "Admin@gmail.com";
+	countTotalUsers = 2L;
+	email = "Admin@gmail.com";
+	
 	}
+	
 	
 	@Test
 	public void deleteShouldDeleteResourceWhenIdExists() {
 		
 		service.delete(existingId);
 
-		Assertions.assertEquals(countTotalEmail - 1, emailRepository.count());
+		Assertions.assertEquals(countTotalUsers - 1, userRepository.count());
 	}
 	
 	@Test
@@ -59,12 +63,12 @@ public class EmailServicesIT {
 		
 		PageRequest pageRequest = PageRequest.of(0, 2);
 		
-		Page<EmailDTO> result = service.findAll( pageRequest);
+		Page<UserDTO> result = service.findAll( pageRequest);
 		
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals(0, result.getNumber());
 		Assertions.assertEquals(2, result.getSize());
-		Assertions.assertEquals(countTotalEmail, result.getTotalElements());
+		Assertions.assertEquals(countTotalUsers, result.getTotalElements());
 	}
 	
 	@Test
@@ -72,33 +76,33 @@ public class EmailServicesIT {
 		
 		PageRequest pageRequest = PageRequest.of(50, 10);
 		
-		Page<EmailDTO> result = service.findAll(pageRequest);
+		Page<UserDTO> result = service.findAll(pageRequest);
 		
 		Assertions.assertTrue(result.isEmpty());
 	}
 	
 	@Test
-	public void findAllPagedShouldReturnSortedPageWhenSortByownerRef() {
+	public void findAllPagedShouldReturnSortedPageWhenSortByName() {
 		
-		PageRequest pageRequest = PageRequest.of(0, 3, Sort.by("ownerRef"));
+		PageRequest pageRequest = PageRequest.of(0, 2, Sort.by("name"));
 		
-		Page<EmailDTO> result = service.findAll( pageRequest);
+		Page<UserDTO> result = service.findAll( pageRequest);
 		
 		Assertions.assertFalse(result.isEmpty());
-		Assertions.assertEquals("Andre Sousa", result.getContent().get(0).getOwnerRef());
-		Assertions.assertEquals("Bruno Silva", result.getContent().get(1).getOwnerRef());
-		Assertions.assertEquals("Mikaelle sousa", result.getContent().get(2).getOwnerRef());		
+		Assertions.assertEquals("Admin", result.getContent().get(0).getName());
+		Assertions.assertEquals("Mikaelle", result.getContent().get(1).getName());
+	
 	}
 	
 	@Test
-	public void EmailFromPagedShouldReturnSortedPageWhenByEmailFrom() {
+	public void findByEmailPagedShouldReturnSortedPageWhenByEmail() {
 		
 		
-		Page<EmailDTO> result = service.findByEmailFrom(emailFrom, PageRequest.of(0, 1));
+		List<UserDTO> result = service.findByEmail(email);
 	
 		Assertions.assertFalse(result.isEmpty());
-		Assertions.assertEquals(emailFrom, result.getContent().get(0).getEmailFrom());
+		Assertions.assertEquals(email, result.get(0).getEmail());
 
 	}
-
+	
 }
