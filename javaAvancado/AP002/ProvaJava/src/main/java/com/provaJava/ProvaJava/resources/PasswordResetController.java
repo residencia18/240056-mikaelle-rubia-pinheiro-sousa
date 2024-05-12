@@ -37,15 +37,15 @@ public class PasswordResetController {
     @PostMapping("/redefinir-senha")
     public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordDTO data) {
     	User user = this.userRepository.findByEmail(data.email()).orElseThrow(()->new RuntimeException("User not found "));
-    	LOGGER.info("Executando operação de Resetar senha .{}{}{}", data.email(), data.newPassword());
+    	LOGGER.info("Executando operação de Resetar senha .{}{}", data.email(), data.newPassword());
  
     	try {
-    		String token = this.tokenService.generateTokenReset(data.newPassword());
+
     		user.setPassword(this.passwordEncoder.encode(data.newPassword()));
     		
     		this.userRepository.save(user);
 
-    		return ResponseEntity.ok().build();
+    		return ResponseEntity.ok("Senha trocado com sucesso!");
     	
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

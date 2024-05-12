@@ -39,7 +39,8 @@ public class PasswordRecoveryController {
 	    		
 	    		String url_reset_password = "http://localhost:8080/redefinir-senha";
 	    		LoginResponseDTO loginResponseDTO  = new LoginResponseDTO(user.getName(), token);
-	    		String tokenText = " link para redefinir senha: http://localhost:8080/redefinir-senha , Token de acesso: "+ token;
+	    		String tokenText = "Link para redefinir senha: http://localhost:8080/redefinir-senha,"
+	    				+ " Token de acesso: "+ token;
 	    		
 	    		String ownerRef = "API prova java";
 	    		String emailFrom = "redefinir@gmail.com";
@@ -49,7 +50,7 @@ public class PasswordRecoveryController {
 	    		
 	    		this.emailResource.sendingEmail(emailDto);
 	    		
-	    		return ResponseEntity.ok().build();
+	    		return ResponseEntity.ok("Email enviado com sucesso!");
 	    	}
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

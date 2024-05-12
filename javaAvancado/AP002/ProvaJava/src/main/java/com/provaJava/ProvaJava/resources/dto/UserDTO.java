@@ -13,27 +13,31 @@ import lombok.Setter;
 
 public class UserDTO {
 	
+	private Long id;
+	
 	@NotBlank(message = "Valor do campo name não pode ser null ou vazio")
 	private String name;
 	@Email
 	@NotBlank(message = "Valor do campo email não pode ser null ou vazio")
     private String email;
 	
-    private String password;
+
 	public UserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public UserDTO(User user) {
+		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
-		this.password = user.getPassword();
+
 	}
-	public UserDTO(String name, String email, String password) {
+	public UserDTO(String name, String email) {
 		super();
+		this.id = null;
 		this.name = name;
 		this.email = email;
-		this.password = password;
+
 	}
     
     

@@ -15,6 +15,8 @@ import lombok.Setter;
 @Setter
 
 public class EmailDTO {
+
+	private Long id;
 	
 	@NotBlank(message = "Valor do campo ownerRef não pode ser null ou vazio")
 	private String ownerRef;
@@ -36,8 +38,10 @@ public class EmailDTO {
 	public EmailDTO() {
 		
 	}
+
 	public EmailDTO(String ownerRef, String emailFrom, String emailTo, String subject, String text) {
 		super();
+		this.id = null;
 		this.ownerRef = ownerRef;
 		this.emailFrom = emailFrom;
 		this.emailTo = emailTo;

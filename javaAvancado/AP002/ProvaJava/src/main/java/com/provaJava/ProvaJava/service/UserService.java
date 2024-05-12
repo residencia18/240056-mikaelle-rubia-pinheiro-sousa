@@ -8,8 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.provaJava.ProvaJava.domain.User;
 import com.provaJava.ProvaJava.repositories.UserRepository;
@@ -27,6 +29,8 @@ public class UserService {
 		Page<User> list = userRepository.findAll(pageRequest);
 		return  list.map(x -> new UserDTO(x));
 	}
+	
+	
 	
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
