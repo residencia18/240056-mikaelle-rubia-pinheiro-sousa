@@ -11,51 +11,13 @@
 			"name": "Prova",
 			"item": [
 				{
-					"name": "sending-email",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqYXZhQXZhbmNhZG8tYXBpIiwic3ViIjoibWlrYWVsbGUxMjNAZ21haWwuY29tIiwiZXhwIjoxNzE0ODY0ODU4fQ.MnWWQMjCs9bsE8LYNx5BiF-TpotoMrvK47y0pKdj-1U",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"ownerRef\": \"Mikaelle sousa\",\r\n    \"emailFrom\":\"mikaelle.rubiaps02@gmail.com\",\r\n    \"emailTo\":\"mikaelle.Rubia@outlook.com\",\r\n    \"subject\": \"Segundo envio\",\r\n    \"text\":\"Estamos fazendo um teste para envio de email, para a prova de java avançado.\"\r\n   \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/sending-email",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"sending-email"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "http://localhost:8080/auth/register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rubia@gmail.com\",\r\n    \"name\": \"mika\",\r\n    \"password\":\"123\"\r\n}",
+							"raw": "{\r\n    \"email\": \"Admin@gmail.com\",\r\n    \"name\": \"Admin\",\r\n    \"password\":\"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,7 +76,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm92YUphdmEtYXBpIiwic3ViIjoicnViaWExMkBnbWFpbC5jb20iLCJleHAiOjE3MTQ5NDk0NDJ9.im4u_oENuwqoqu_LJCTFaZq0e_4-M_XfYK41IVWqFgc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm92YUphdmEtYXBpIiwic3ViIjoicnViaWFAZ21haWwuY29tIiwiZXhwIjoxNzE1NTU1MTA2fQ.WpCgfuBElpbrXchfSCfcvFZ5hilSyy2lc5VjfG15s18",
 									"type": "string"
 								}
 							]
@@ -123,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rubia12@gmail.com\"\r\n\r\n}",
+							"raw": "{\r\n    \"email\": \"rubia@gmail.com\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,14 +93,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/solicitaReset",
+							"raw": "http://localhost:8080/solicitaReset",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"auth",
 								"solicitaReset"
 							]
 						}
@@ -178,6 +139,168 @@
 							"port": "8080",
 							"path": [
 								"redefinir-senha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sending-email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm92YUphdmEtYXBpIiwic3ViIjoicnViaWFAZ21haWwuY29tIiwiZXhwIjoxNzE1NTU1NTc4fQ.N6yzLWSr_PVJEanpOUrRuBut6ieSLeL7oUM1aiBBCbU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ownerRef\": \"Mikaelle sousa\",\r\n    \"emailFrom\":\"mikaelle.rubiaps02@gmail.com\",\r\n    \"emailTo\":\"mikaelle.Rubia@outlook.com\",\r\n    \"subject\": \"terceiro envio\",\r\n    \"text\":\"Estamos fazendo um teste para envio de email, para a prova de java avançado.\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/email/sending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"email",
+								"sending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sending-email Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJqYXZhQXZhbmNhZG8tYXBpIiwic3ViIjoibWlrYWVsbGUxMjNAZ21haWwuY29tIiwiZXhwIjoxNzE0ODY0ODU4fQ.MnWWQMjCs9bsE8LYNx5BiF-TpotoMrvK47y0pKdj-1U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ownerRef\": \"Mikaelle sousa\",\r\n    \"emailFrom\":\"mikaelle.rubiaps02@gmail.com\",\r\n    \"emailTo\":\"mikaelle.Rubia@outlook.com\",\r\n    \"subject\": \"Segundo envio\",\r\n    \"text\":\"Estamos fazendo um teste para envio de email, para a prova de java avançado.\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/email/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"email",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm92YUphdmEtYXBpIiwic3ViIjoicnViaWFAZ21haWwuY29tIiwiZXhwIjoxNzE1NTU1NTc4fQ.N6yzLWSr_PVJEanpOUrRuBut6ieSLeL7oUM1aiBBCbU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/email/all-email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"email",
+								"all-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm92YUphdmEtYXBpIiwic3ViIjoibWlrYWVsbGUuUnViaWFAb3V0bG9vay5jb20iLCJleHAiOjE3MTU1NTc3ODJ9.tV3mGSW2yDlHGV7eUyXtxRwjMykMgaxqQpX2RpQ-XK0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"all"
 							]
 						}
 					},
