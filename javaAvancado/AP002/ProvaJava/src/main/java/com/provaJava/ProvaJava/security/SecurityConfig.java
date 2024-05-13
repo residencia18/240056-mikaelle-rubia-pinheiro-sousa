@@ -36,7 +36,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() 
+                .requestMatchers(HttpMethod.POST, "/solicitaReset").permitAll()
+                
 //                .requestMatchers(HttpMethod.POST, "/email/sending").permitAll()
 //                .requestMatchers(HttpMethod.GET, "/email/all-email").permitAll()
 //                .requestMatchers(HttpMethod.GET, "/email/{id}").permitAll()

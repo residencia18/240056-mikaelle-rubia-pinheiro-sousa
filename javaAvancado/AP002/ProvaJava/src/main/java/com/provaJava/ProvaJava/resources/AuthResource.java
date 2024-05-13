@@ -43,6 +43,7 @@ public class AuthResource {
     	if(this.passwordEncoder.matches(data.password(), user.getPassword())) {
     		String token = this.tokenService.generateToken(user);
     		return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
+//    		return ResponseEntity.ok("Login realizado com sucesso!");
     	}
     	
     	return ResponseEntity.badRequest().build();
@@ -63,10 +64,11 @@ public class AuthResource {
     		
     		this.userRepository.save(newUser);
     		
-    		String token = this.tokenService.generateToken(newUser);
-    	
-    		return ResponseEntity.ok(new LoginResponseDTO(newUser.getName(), token));
-    	   		
+//    		String token = this.tokenService.generateToken(newUser);
+//    	
+//    		return ResponseEntity.ok(new LoginResponseDTO(newUser.getName(), token));
+
+    		return ResponseEntity.ok("Usuario registrado com sucesso!");
     	}
       
     	return ResponseEntity.badRequest().build();

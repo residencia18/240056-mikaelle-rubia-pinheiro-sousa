@@ -69,7 +69,7 @@ public class EmailResource {
 			Email email = new Email();
 			BeanUtils.copyProperties(emailDto, email);
 			emailService.insert(email);
-
+			
 			LOGGER.info("--------Enviando email-------");
 			return ResponseEntity.ok().build();
       } catch (Exception e) {
