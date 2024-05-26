@@ -1,0 +1,50 @@
+<form class="form-group" [formGroup]="newUnitForm">
+  <h3>Adicionar Nova Unidade de Academia</h3>
+  <div class="form-labels">
+    <div class="form-group-field">
+      <label for="title">Título</label>
+      <input type="text" id="title" formControlName="title" class="form-control"/>
+    </div>
+
+    <div class="form-group-field">
+      <label for="content">Conteúdo</label>
+      <textarea id="content" formControlName="content" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group-field">
+      <label for="mask">Máscara</label>
+      <select id="mask" formControlName="mask" class="form-control">
+        <option value="not required">Não Requerido</option>
+        <option value="required">Requerido</option>
+      </select>
+    </div>
+
+    <div class="form-group-field">
+      <label for="towel">Toalha</label>
+      <select id="towel" formControlName="towel" class="form-control">
+        <option value="not required">Não Requerido</option>
+        <option value="required">Requerido</option>
+      </select>
+    </div>
+
+    <div class="form-group-field">
+      <label for="fountain">Bebedouro</label>
+      <select id="fountain" formControlName="fountain" class="form-control">
+        <option value="not required">Não Requerido</option>
+        <option value="required">Requerido</option>
+      </select>
+    </div>
+
+    <div class="form-group-field">
+      <label for="lockerRoom">Vestiário</label>
+      <select id="lockerRoom" formControlName="lockerRoom" class="form-control">
+        <option value="open">Aberto</option>
+        <option value="closed">Fechado</option>
+      </select>
+    </div>
+  </div>
+  <div class="btn-wrapper">
+    <button class="btn btn-primary" (click)="onSubmit()">Adicionar Unidade</button>
+    <button class="btn btn-secondary" (click)="onClear()">Limpar</button>
+  </div>
+</form>
