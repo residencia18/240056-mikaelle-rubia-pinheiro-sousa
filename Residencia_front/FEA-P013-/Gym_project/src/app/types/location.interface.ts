@@ -1,5 +1,5 @@
 export interface Location {
-  id: number,
+  id: string,
   title: string,
   content: string,
   opened: boolean,
@@ -10,7 +10,7 @@ export interface Location {
   schedules: Schedule[]
 }
 
-interface Schedule {
+export interface Schedule {
   weekdays: string,
   hour: string
 }

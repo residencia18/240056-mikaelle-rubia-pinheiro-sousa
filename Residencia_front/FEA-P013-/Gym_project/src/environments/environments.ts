@@ -11,5 +11,25 @@ export const environment ={
     measurementId: "G-QSBY0N746D"
   },
 
-  fireDatabase:""
+  fireDatabase:"https://provafinal-4db49-default-rtdb.firebaseio.com/"
+}
+
+
+export const schedule ={
+  hour: ['06h às 12h',
+  '06h às 10h',
+  '06h às 12h',
+  '06h às 23h',
+  '06h às 22h',
+  '09h às 18h',
+  '17h às 21h',
+  '14h às 20h',
+  '12h às 20h',
+  '12h às 18h',
+  '14h às 20h',
+  '08h às 18h',
+  '08h às 20h',
+   'Fechada'
+  ],
+  weekdays:['Seg. à Sex.', 'Sáb.','Dom.']
 }
