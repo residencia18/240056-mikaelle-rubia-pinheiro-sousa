@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GetUnitsService } from '../../services/get-units.service';
 import { Location } from '../../types/location.interface';
 import { CardComponent } from '../card/card.component';
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,7 @@ export class CardsListComponent implements OnInit {
 
   constructor(){}
   ngOnInit(): void {
-    console.log("aquiii",this.unitsList)
+    console.log("aqui",this.unitsList)
   }
 
 }

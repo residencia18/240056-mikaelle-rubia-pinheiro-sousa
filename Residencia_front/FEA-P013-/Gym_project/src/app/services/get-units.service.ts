@@ -14,7 +14,6 @@ export class GetUnitsService {
   private allUnitsSubject: BehaviorSubject<Location[]> = new BehaviorSubject<Location[]>([]);
   private allUnits$: Observable<Location[]> = this.allUnitsSubject.asObservable();
   private filteredUnits: Location[] = [];
-  results: Location[] = [];
   filteredResults: Location[] = [];
 
   constructor(private httpClient: HttpClient) {

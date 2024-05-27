@@ -6,6 +6,7 @@
   --medium-text: #939393;
   --yellow: #FFB612;
   --red: #dc0a17;
+  --red-delete: #cc5059;
   --green: #2FC022;
 }
 
@@ -47,4 +48,30 @@ body {
   src: url('assets/fonts/Gotham/gotham-black.woff2') format('truetype');
   font-weight: 900;
   font-style: normal;
+}
+
+.p-toast {
+
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.p-toast .p-toast-message {
+  color: #333;
+  padding: 16px;
+  font-size: 14px;
+}
+
+.p-toast .p-toast-message .p-toast-summary {
+  font-weight: bold;
+  color: #555;
+}
+
+.p-toast .p-toast-message .p-toast-detail {
+  color: #777;
+}
+
+.p-toast-icon-close {
+  color: #999;
 }

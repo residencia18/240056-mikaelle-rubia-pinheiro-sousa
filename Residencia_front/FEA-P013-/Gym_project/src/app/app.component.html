@@ -3,14 +3,14 @@
   <app-forms (submitEvent)="onSubmite()"></app-forms>
   <app-legend></app-legend>
   <app-cards-list *ngIf="(showList | async)" [unitsList]="unitsList"></app-cards-list>
+  <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div> -->
 
 
 <div class="app-container">
   <app-header></app-header>
-  <app-create-unit></app-create-unit>
+ 
+  <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div>
-
-app-create-unit

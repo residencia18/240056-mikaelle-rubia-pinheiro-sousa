@@ -17,4 +17,9 @@
       {{ schedule.hour }}
     </li>
   </ul>
+
+  <div class="btn-wrapper">
+    <button class="btn btn-primary" [routerLink]="['/createUnitComponent', card.id]">Atualizar</button>
+    <button class="btn btn-secondary"  (click)="onSubmitDelete()">Deletar</button>
+  </div>
 </div>

@@ -1,6 +1,15 @@
 <header>
-  <div class ="logo-container">
-    <img src="../../../assets/images/svg/gym-center.jpg"/>
+  <div class="logo-container">
+    <img src="../../../assets/images/svg/gym-center.jpg" alt="Gym Center Logo"/>
+
+    <div class="btn-wrapper">
+
+      <button class="btn btn-primary"  [routerLink]="['/dashboard']" >Dashboard</button>
+      <button class="btn btn-secondary"  [routerLink]="['/getUnits']">Unidades</button>
+      <button class="btn btn-third" [routerLink]="['/createUnitComponent']">Adicionar unidade</button>
+
+    </div>
+
   </div>
   <div class="text-container">
     <div class="heading">

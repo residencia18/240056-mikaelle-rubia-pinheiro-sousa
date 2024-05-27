@@ -9,9 +9,10 @@
   max-width: 80%;
   width: 100%;
   margin: 0 auto;
+  margin-top: 8px;
   padding: 24px 12px;
 
-  border-radius: 4px;
+  border-radius: 6px;
   gap: 24px;
 }
 
