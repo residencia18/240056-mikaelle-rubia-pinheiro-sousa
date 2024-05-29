@@ -89,6 +89,12 @@ height: 200px;
 
 }
 
+.logo-container .btn-wrapper .btn-primary-sair
+{
+  background-color: var( --red-sair);
+
+}
+
 .logo-container .btn-wrapper .btn-primary,
 .logo-container .btn-wrapper .btn-third,
 .logo-container .btn-wrapper .btn-secondary

@@ -37,7 +37,7 @@ export class FormsComponent implements OnInit{
           next: (response) => {
             this.results = response;
             this.filteredResults = response;
-            console.log("agora", response);
+            console.log("response:", response);
           },
           error: (err) => {
             console.error('Error fetching filtered units:', err);

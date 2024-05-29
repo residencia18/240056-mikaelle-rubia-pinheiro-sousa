@@ -1,0 +1,45 @@
+<div class="grid">
+
+    <form *ngIf ="loginCard" class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmitLoginFire()" >
+      <p-card  header="Login"  subheader="Faça login com sua conta existente!" *ngIf ="loginCard" >
+
+      <div class="radio-wrapper">
+        <input #emailInput type="email" pInputText  placeholder="Email" formControlName="email">
+        <input #passwordInput  type="password" pInputText  placeholder="Senha" formControlName="password">
+
+      </div>
+
+      <div class="button-login">
+        <button class="btn btn-primary" type="submit" pButton pRipple label = "Login" [disabled]="!this.loginForm.valid"></button>
+        <button  class="btn btn-secondary" type="submit" pButton pRipple label = "Login Google"  (click)="loginWitnGoogle()"></button>
+      </div>
+
+      <span class="createAccount"
+      (click)="loginCard = !loginCard" style="cursor: pointer;"  >Criar conta </span>
+    </p-card>
+    </form>
+
+
+    <form *ngIf ="!loginCard" class="form-group-update" [formGroup]="signupForm" (ngSubmit)="onSubmitSignupFire()">
+      <p-card  header="Criar conta"  subheader="Crie já sua conta!" *ngIf ="!loginCard">
+
+      <div class="radio-wrapper">
+        <input type="email" pInputText  placeholder="Email" formControlName="email">
+        <input type="password" pInputText  placeholder="Senha" formControlName="password">
+      </div>
+
+      <div class="button-login">
+        <button class="btn btn-primary"  type="submit" pButton pRipple label="Criar conta" [disabled]="!this.signupForm.valid"></button>
+      </div>
+
+      <span
+      class="flex justify-content-center align-content-center text-align-center mt-3 text-red-600 font-semibold"
+      style="cursor: pointer;"
+      (click)="loginCard = !loginCard"
+      >Fazer login </span>
+    </p-card>
+    </form>
+
+</div>
+
+

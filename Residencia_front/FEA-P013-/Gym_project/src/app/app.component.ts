@@ -11,6 +11,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from "./components/login/login.component";
 import { CreateUnitComponent } from './components/create-unit/create-unit.component';
 import { CreateUnitsService } from './services/create-units.service';
+import { HomeComponent } from './components/home/home.component';
+
+
 
 
 @Component({
@@ -22,7 +25,7 @@ import { CreateUnitsService } from './services/create-units.service';
       HeaderComponent, FormsComponent,
       CardsListComponent, CommonModule,
       LegendComponent, FooterComponent,
-      LoginComponent]
+      LoginComponent, HomeComponent]
 })
 export class AppComponent {
   showList = new BehaviorSubject(false);
